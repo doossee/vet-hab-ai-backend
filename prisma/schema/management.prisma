@@ -1,0 +1,54 @@
+model District {
+  id Int @id @default(autoincrement())
+
+  name     String
+  regionId Int
+  region   Region @relation(fields: [regionId], references: [id], onDelete: Cascade)
+
+  users       User[]
+  vetStations VetStation[]
+}
+
+model Region {
+  id Int @id @default(autoincrement())
+
+  name      String     @unique
+  districts District[]
+}
+
+model VetStation {
+  id Int @id @default(autoincrement())
+
+  name    String
+  address String
+
+  districtId Int
+  district   District @relation(fields: [districtId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AnimalType {
+  id Int @id @default(autoincrement())
+
+  name    String
+  animals Animal[]
+}
+
+model Color {
+  id Int @id @default(autoincrement())
+
+  name String
+  hex  String
+
+  animals Animal[]
+}
+
+model VaccineType {
+  id Int @id @default(autoincrement())
+
+  name String
+
+  vaccines Vaccine[]
+}

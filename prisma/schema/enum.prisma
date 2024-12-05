@@ -1,0 +1,41 @@
+enum UserRole {
+  ADMIN
+  VETERINARIAN
+  FARMER
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+enum Breed {
+  MEAT
+  MILK
+}
+
+enum BodyType {
+  WEAK // kuchsiz
+  MEDIUM // o'rtacha
+  STRONG // kuchli
+}
+
+enum ObesityType {
+  HIGH // yuqori
+  MEDIUM // o'rtacha
+  LOW // past
+  LEAN // ozg'inlik
+  CACHEXIA //kaxeksiya
+}
+
+enum BodyStructure {
+  COARSE // qupol
+  SLIM // nozik
+  DENSE // zich
+  WEAK // bo'sh
+}
+
+enum CustomerType {
+  MOBILE // harakatchan
+  CALM // tinch
+}

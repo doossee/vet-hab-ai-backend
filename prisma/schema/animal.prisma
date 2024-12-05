@@ -1,0 +1,48 @@
+model Animal {
+  id Int @id @default(autoincrement())
+
+  idCode      String
+  arrivalDate DateTime
+
+  farmerId Int
+  farmer   Farmer @relation(fields: [farmerId], references: [id])
+
+  typeId Int
+  type   AnimalType @relation(fields: [typeId], references: [id])
+
+  name   String
+  gender Gender
+  breed  Breed
+
+  age    Int
+  weight Float
+
+  address String
+
+  colorId Int
+  color   Color @relation(fields: [colorId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  vaccines Vaccine[]
+
+  generalTests      GeneralTest[]
+  bloodSerumTests   BloodSerumTest[]
+  generalBloodTests GeneralBloodTest[]
+}
+
+model Vaccine {
+  id Int @id @default(autoincrement())
+
+  date DateTime
+
+  typeId Int
+  type   VaccineType @relation(fields: [typeId], references: [id])
+
+  animalId Int
+  animal   Animal @relation(fields: [animalId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

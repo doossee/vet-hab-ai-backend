@@ -1,0 +1,81 @@
+model GeneralTest {
+  id Int @id @default(autoincrement())
+
+  temperature     Float // temperatura
+  pulse           Int // puls
+  respiratoryRate Float // nafas soni
+  rumination      Int // ruminatsiya
+  gabitus         Gabitus?
+
+  animalId Int
+  animal   Animal @relation(fields: [animalId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Gabitus {
+  id Int @id @default(autoincrement())
+
+  bodyType      BodyType // jussasi
+  bodyStructure BodyStructure // tana tuzilishi
+  obesity       ObesityType // semizligi
+  customerType  CustomerType // hayvon mijozi
+
+  inspectionId Int         @unique
+  inspection   GeneralTest @relation(fields: [inspectionId], references: [id], onDelete: Cascade)
+}
+
+model GeneralBloodTest {
+  id Int @id @default(autoincrement())
+
+  date    DateTime // sana 
+  summary String // xulosa
+
+  erythrocyteCount Float // eritrosit soni
+  leukocyteCount   Float // leykosit soni
+  thrombocyteCount Float // trobmasit soni
+
+  coe                  Float // COE
+  waterPercentage      Float // suv foizda
+  dryResiduePercentage Float // quruq qoldiq
+  hemoglobin           Float // gemoglobin
+  glutathione          Float // glutation
+
+  animalId Int
+  animal   Animal @relation(fields: [animalId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model BloodSerumTest {
+  id Int @id @default(autoincrement())
+
+  totalProtein      Float // umumiy oqsil
+  totalCalcium      Float // umumiy kalsiy
+  organicPhosphorus Float // organik fosfor
+  albumen           Float // albumin
+  alphaGlobulin     Float // alfa globulin
+  betaGlobulin      Float // beta globulin
+  gammaGlobulin     Float // gamma globulin
+  creatine          Float // kreatin
+  alkalineReserve   Float // ishqoriy zahira
+  glucose           Float // glyukoza
+  totalBilirubin    Float // umumiy bilirubin
+  cholesterol       Float // xolesterin
+  totalLipids       Float // umumiy lipidlar
+  vitaminA          Float // vitamin A
+  vitaminB          Float // vitamin B
+  lacticAcid        Float // laktik kislotasi
+  pyruvicAcid       Float // pirouzum kislotasi
+  citricAcid        Float // limon kislotasi
+  urea              Float // siydik
+  ureaAcid          Float // siydik kislotasi
+
+  animalId Int
+  animal   Animal @relation(fields: [animalId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
