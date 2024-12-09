@@ -40,9 +40,22 @@ model Color {
   id Int @id @default(autoincrement())
 
   name String
-  hex  String
+  hex String?
 
   animals Animal[]
+  generalInspections GeneralInspection[]
+}
+
+model UrineColor {
+  id Int @id @default(autoincrement())
+
+  name String
+}
+
+model StoolColor {
+  id Int @id @default(autoincrement())
+
+  name String
 }
 
 model VaccineType {
@@ -51,4 +64,12 @@ model VaccineType {
   name String
 
   vaccines Vaccine[]
+}
+
+model DiseaseType {
+  id Int @id @default(autoincrement())
+
+  name String
+
+  diseases Disease[]
 }

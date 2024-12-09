@@ -1,29 +1,60 @@
-model GeneralTest {
+model GeneralInspection {
   id Int @id @default(autoincrement())
+
+  animalId Int
+  animal   Animal @relation(fields: [animalId], references: [id], onDelete: Cascade)
+
+  // Gabitus
+
+  bodyType      BodyType // jussasi
+  bodyStructure BodyStructure // tana tuzilishi
+  obesity       ObesityType // semizligi
+  customerType  CustomerType // hayvon mijozi gabitus         Gabitus?
+
+  colorId Int
+  color Color @relation(fields: [colorId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  inspections Inspection[]
+}
+
+model Inspection {
+  id Int @id @default(autoincrement())
+
+  diseaseId Int?
+  disease Disease? @relation(fields: [diseaseId], references: [id], onDelete: Cascade)
+
+  generalInspectionId Int?
+  generalInspection GeneralInspection? @relation(fields: [generalInspectionId], references: [id], onDelete: Cascade)
 
   temperature     Float // temperatura
   pulse           Int // puls
   respiratoryRate Float // nafas soni
   rumination      Int // ruminatsiya
-  gabitus         Gabitus?
-
-  animalId Int
-  animal   Animal @relation(fields: [animalId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-model Gabitus {
+model Disease {
   id Int @id @default(autoincrement())
 
-  bodyType      BodyType // jussasi
-  bodyStructure BodyStructure // tana tuzilishi
-  obesity       ObesityType // semizligi
-  customerType  CustomerType // hayvon mijozi
+  animalId Int
+  animal   Animal @relation(fields: [animalId], references: [id], onDelete: Cascade)
 
-  inspectionId Int         @unique
-  inspection   GeneralTest @relation(fields: [inspectionId], references: [id], onDelete: Cascade)
+  typeId Int
+  type DiseaseType @relation(fields: [typeId], references: [id])
+
+  startTime DateTime
+  endTime DateTime
+
+  conclusion String @db.Text()
+
+  inspections Inspection[]
+  urineTests UrineTest[]
+  dungTests DungTest[]
 }
 
 model GeneralBloodTest {
@@ -75,6 +106,40 @@ model BloodSerumTest {
 
   animalId Int
   animal   Animal @relation(fields: [animalId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model UrineTest {
+  id Int @id @default(autoincrement())
+
+  animalId Int?
+  animal   Animal? @relation(fields: [animalId], references: [id], onDelete: Cascade)
+
+  diseaseId Int?
+  disease Disease? @relation(fields: [diseaseId], references: [id], onDelete: Cascade)
+
+  consistency Int
+  smell SmellType
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model DungTest {
+  id Int @id @default(autoincrement())
+
+  animalId Int?
+  animal   Animal? @relation(fields: [animalId], references: [id], onDelete: Cascade)
+
+  diseaseId Int?
+  disease Disease? @relation(fields: [diseaseId], references: [id], onDelete: Cascade)
+
+  consistency Int
+  smell SmellType
+  form DungForm
+  worms Int
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

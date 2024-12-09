@@ -26,10 +26,14 @@ model Animal {
   updatedAt DateTime @updatedAt
 
   vaccines Vaccine[]
+  diseases Disease[]
 
-  generalTests      GeneralTest[]
-  bloodSerumTests   BloodSerumTest[]
+  generalInspection GeneralInspection[]
   generalBloodTests GeneralBloodTest[]
+  bloodSerumTests   BloodSerumTest[]
+
+  urineTests UrineTest[]
+  dungTests DungTest[]
 }
 
 model Vaccine {

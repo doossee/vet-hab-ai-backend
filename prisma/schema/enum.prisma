@@ -1,17 +1,17 @@
 enum UserRole {
-  ADMIN
-  VETERINARIAN
-  FARMER
+  ADMIN // admin
+  VETERINARIAN // veterinar
+  FARMER // chorvador
 }
 
 enum Gender {
-  MALE
-  FEMALE
+  MALE  // erkak
+  FEMALE // ayol
 }
 
 enum Breed {
-  MEAT
-  MILK
+  MEAT // go'sht
+  MILK // sut
 }
 
 enum BodyType {
@@ -38,4 +38,25 @@ enum BodyStructure {
 enum CustomerType {
   MOBILE // harakatchan
   CALM // tinch
+}
+
+enum InspectionType {
+  MORNING // ertalabki
+  EVENING // kechki
+  DISEASE // kasallik
+  GENERAL // umumiy
+}
+
+enum SmellType {
+  PUNGENT // o'tkir
+  WEAK  // kuchsiz
+  HAS // hidi bor
+  NO // hidi yo'q
+}
+
+enum DungForm {
+  NORMAL // normal
+  SOLID // qattiq
+  LIQUID // suyuq
+  MEDIUM // o'rta
 }
