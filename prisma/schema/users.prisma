@@ -1,0 +1,44 @@
+model User {
+  id Int @id @default(autoincrement())
+
+  phone        String  @unique
+  password     String
+
+  firstName  String
+  lastName   String
+  middleName String?
+
+  gender     Gender?
+  birthdate  DateTime?
+  districtId Int
+  district   District  @relation(fields: [districtId], references: [id])
+  address    String?
+  role       UserRole
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  veterinarianData Veterinarian?
+  farmerData       Farmer?
+}
+
+model Veterinarian {
+  id Int @id @default(autoincrement())
+
+  userId Int  @unique
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  farmers Farmer[]
+}
+
+model Farmer {
+  id Int @id @default(autoincrement())
+
+  userId Int  @unique
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  veterinarianId Int
+  veterinarian   Veterinarian @relation(fields: [veterinarianId], references: [id])
+
+  animals Animal[]
+}

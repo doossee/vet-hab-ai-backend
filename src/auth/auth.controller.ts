@@ -6,13 +6,13 @@ import {
   UseGuards,
   HttpCode,
   HttpStatus,
+  Get,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { LoginDto } from './dto';
+import { AuthDto, RefreshTokenDto } from './dto';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { AuthEntity } from './entities';
-import { AuthGuard } from '@nestjs/passport';
-import { IsAuthenticated } from './decorators';
+import { JwtVerifyGuard } from './guards/jwt-verify.guard';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -21,25 +21,17 @@ export class AuthController {
 
   @ApiOkResponse({ type: AuthEntity })
   @Post('login')
-  async login(@Body() data: LoginDto) {
+  async login(@Body() data: AuthDto) {
     return new AuthEntity(await this.authService.login(data));
   }
 
-  @IsAuthenticated()
-  @HttpCode(HttpStatus.OK)
-  @Post('logout')
-  async logout(@Req() request) {
-    const user = request.user;
-    return await this.authService.logout(user.id);
-  }
-
   @ApiOkResponse({ type: AuthEntity })
-  @UseGuards(AuthGuard('jwt-refresh'))
+  @UseGuards(JwtVerifyGuard)
   @Post('refresh')
-  async refresh(@Req() request) {
-    const user = request.user;
+  async refresh(@Req() request, @Body() data: RefreshTokenDto) {
+    const userId = request.user.sub;
     return new AuthEntity(
-      await this.authService.refresh(user.id, user.refreshToken),
+      await this.authService.refresh(userId, data.refreshToken),
     );
   }
 }
