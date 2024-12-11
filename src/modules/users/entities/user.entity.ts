@@ -1,7 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { $Enums } from '@prisma/client';
+import { $Enums, User } from '@prisma/client';
+import { Exclude } from 'class-transformer';
 
-export class UserEntity {
+export class UserEntity implements User {
+  constructor({ ...data }: Partial<UserEntity>) {
+    Object.assign(this, data);
+  }
+
   @ApiProperty({
     description: 'Unique identifier of the user',
     example: 1,
@@ -9,23 +14,13 @@ export class UserEntity {
   id: number;
 
   @ApiProperty({
-    description: 'User\'s phone number',
+    description: "User's phone number",
     example: '+1234567890',
   })
   phone: string;
 
-  @ApiProperty({
-    description: 'Hashed password of the user',
-    example: 'hashed_password_string',
-  })
+  @Exclude()
   password: string;
-
-  @ApiProperty({
-    description: 'Refresh token assigned to the user',
-    example: 'refresh_token_string',
-    required: false,
-  })
-  refreshToken: string;
 
   @ApiProperty({
     description: 'First name of the user',
@@ -54,11 +49,11 @@ export class UserEntity {
   gender: $Enums.Gender;
 
   @ApiProperty({
-    description: 'User\'s birthdate',
+    description: "User's birthdate",
     type: String,
     example: '2000-01-01',
   })
-  birthdate: Date;
+  birthDate: Date;
 
   @ApiProperty({
     description: 'District identifier associated with the user',
@@ -73,7 +68,7 @@ export class UserEntity {
   address: string;
 
   @ApiProperty({
-    description: 'User\'s role in the system',
+    description: "User's role in the system",
     enum: $Enums.UserRole,
     example: $Enums.UserRole.ADMIN,
   })

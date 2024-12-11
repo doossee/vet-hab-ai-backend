@@ -9,7 +9,7 @@ model User {
   middleName String?
 
   gender     Gender?
-  birthdate  DateTime?
+  birthDate  DateTime?
   districtId Int
   district   District  @relation(fields: [districtId], references: [id])
   address    String?

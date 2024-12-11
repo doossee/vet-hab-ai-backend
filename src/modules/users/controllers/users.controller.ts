@@ -1,7 +1,17 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
-import { UsersService } from './services/users.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  ParseIntPipe,
+  Query,
+} from '@nestjs/common';
+import { UsersService } from '../services';
+import { CreateUserDto, UpdateUserDto } from '../dto';
+import { UserQueryParamsDto } from '../dto/query-params.dto';
 
 @Controller('users')
 export class UsersController {
@@ -13,8 +23,8 @@ export class UsersController {
   }
 
   @Get()
-  async findAll() {
-    return await this.usersService.findAll();
+  async findAll(@Query() params: UserQueryParamsDto) {
+    return await this.usersService.findAll(params);
   }
 
   @Get(':id')
@@ -23,7 +33,10 @@ export class UsersController {
   }
 
   @Patch(':id')
-  async update(@Param('id', ParseIntPipe) id: number, @Body() data: UpdateUserDto) {
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() data: UpdateUserDto,
+  ) {
     return await this.usersService.update(id, data);
   }
 

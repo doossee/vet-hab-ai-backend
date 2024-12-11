@@ -22,6 +22,9 @@ export class AuthDto {
 export class RefreshTokenDto {
   @IsString()
   @IsNotEmpty()
-  @ApiProperty({ example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTczMzIzMTAyNCwiZXhwIjoxNzMzODM1ODI0fQ.DNcX3QHIowkFxfw88Nh6pMXJNSqNPlZBYsf6uSW96dk'})
+  @ApiProperty({
+    example:
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTczMzIzMTAyNCwiZXhwIjoxNzMzODM1ODI0fQ.DNcX3QHIowkFxfw88Nh6pMXJNSqNPlZBYsf6uSW96dk',
+  })
   readonly refreshToken: string;
 }

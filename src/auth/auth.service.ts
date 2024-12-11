@@ -55,19 +55,19 @@ export class AuthService {
     if (!userId) {
       throw new UnauthorizedException('Invalid user ID');
     }
-    
+
     const user = await this.prisma.user.findUniqueOrThrow({
       where: {
         id: userId,
       },
     });
 
-    try { 
+    try {
       const payload = await this.jwtService.verifyAsync(oldRefreshToken, {
-        secret: this.configService.get<string>('JWT_REFRESH_SECRET')
-      })
+        secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
+      });
 
-      if (!payload || payload.sub !== userId ) {
+      if (!payload || payload.sub !== userId) {
         throw new UnauthorizedException('Refresh token is expired or invalid');
       }
     } catch {

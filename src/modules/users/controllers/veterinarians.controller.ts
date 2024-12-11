@@ -1,0 +1,63 @@
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  ParseIntPipe,
+  Query,
+} from '@nestjs/common';
+import { VeterinariansService } from '../services';
+import { CreateUserDto, UpdateUserDto } from '../dto';
+import { VeterinarianQueryParamsDto } from '../dto/query-params.dto';
+import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { PaginatedVeterinariansEntity } from '../entities/paginated-response.entity';
+import { VeterinarianEntity } from '../entities/veterinarian.entity';
+import { UserEntity } from '../entities/user.entity';
+
+@ApiTags('veterinarians')
+@Controller('veterinarians')
+export class VeterinariansController {
+  constructor(private readonly veterinariansService: VeterinariansService) {}
+
+  @ApiCreatedResponse({ type: VeterinarianEntity })
+  @Post()
+  async create(@Body() data: CreateUserDto) {
+    return new VeterinarianEntity(await this.veterinariansService.create(data));
+  }
+
+  @ApiOkResponse({ type: PaginatedVeterinariansEntity })
+  @Get()
+  async findAll(@Query() params: VeterinarianQueryParamsDto) {
+    const { data, meta } = await this.veterinariansService.findAll(params);
+    const transdormedData = data.map(
+      (veterinarian) => new VeterinarianEntity(veterinarian),
+    );
+    return { data: transdormedData, meta };
+  }
+
+  @ApiOkResponse({ type: VeterinarianEntity })
+  @Get(':id')
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    return new VeterinarianEntity(await this.veterinariansService.findOne(id));
+  }
+
+  @ApiOkResponse({ type: VeterinarianEntity })
+  @Patch(':id')
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() data: UpdateUserDto,
+  ) {
+    return new VeterinarianEntity(
+      await this.veterinariansService.update(id, data),
+    );
+  }
+
+  @ApiOkResponse({ type: UserEntity })
+  @Delete(':id')
+  async remove(@Param('id', ParseIntPipe) id: number) {
+    return new UserEntity(await this.veterinariansService.remove(id));
+  }
+}

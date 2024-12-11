@@ -1,5 +1,5 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { Type } from "class-transformer";
+import { ApiProperty, PartialType } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
 import {
   IsDate,
   IsEnum,
@@ -11,10 +11,11 @@ import {
   IsString,
   MaxLength,
   MinLength,
-} from "class-validator";
-import { Gender, UserRole } from "@prisma/client";
+} from 'class-validator';
+import { Gender, UserRole } from '@prisma/client';
+import { VeterinariansService } from '../services/veterinarians.service';
 
-export class CreateUserDto {
+export class CreateVeterinarianDto {
   @IsString()
   @IsPhoneNumber('UZ', { message: 'Phone number must be in the Uzbek format' })
   @IsNotEmpty()
@@ -32,16 +33,6 @@ export class CreateUserDto {
     example: 'hashed_password_string',
   })
   readonly password: string;
-
-  @IsString()
-  @IsOptional()
-  @ApiProperty({
-    description: "The user's refresh token",
-    example: 'refresh_token_string',
-    required: false,
-    nullable: true,
-  })
-  readonly refreshToken?: string | null;
 
   @IsString()
   @MinLength(1, { message: 'First name must be at least 1 character long' })
@@ -74,7 +65,9 @@ export class CreateUserDto {
   })
   readonly middleName?: string | null;
 
-  @IsEnum(Gender, { message: 'Gender must be one of the predefined enum values' })
+  @IsEnum(Gender, {
+    message: 'Gender must be one of the predefined enum values',
+  })
   @IsOptional()
   @ApiProperty({
     description: "The user's gender",
@@ -115,13 +108,6 @@ export class CreateUserDto {
     nullable: true,
   })
   readonly address?: string | null;
-
-  @IsEnum(UserRole, { message: 'Role must be one of the predefined enum values' })
-  @IsNotEmpty()
-  @ApiProperty({
-    description: "The user's role in the system",
-    enum: UserRole,
-    example: UserRole.ADMIN,
-  })
-  readonly role: UserRole;
 }
+
+export class UpdateVeterinarianDto extends PartialType(CreateVeterinarianDto) {}
