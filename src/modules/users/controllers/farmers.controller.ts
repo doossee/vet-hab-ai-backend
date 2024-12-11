@@ -9,13 +9,10 @@ import {
   ParseIntPipe,
   Query,
 } from '@nestjs/common';
-import { FarmersService } from '../services';
-import { CreateFarmerDto, UpdateFarmerDto } from '../dto';
-import { FarmerQueryParamsDto } from '../dto/query-params.dto';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { PaginatedFarmersEntity } from '../entities/paginated-response.entity';
-import { FarmerEntity } from '../entities/farmer.entity';
-import { UserEntity } from '../entities/user.entity';
+import { FarmersService } from '../services';
+import { CreateFarmerDto, UpdateFarmerDto, FarmerQueryParamsDto } from '../dto';
+import { UserEntity, FarmerEntity, PaginatedFarmersEntity } from '../entities';
 
 @ApiTags('farmers')
 @Controller('farmers')

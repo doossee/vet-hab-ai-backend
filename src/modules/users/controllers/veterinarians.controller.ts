@@ -9,13 +9,18 @@ import {
   ParseIntPipe,
   Query,
 } from '@nestjs/common';
-import { VeterinariansService } from '../services';
-import { CreateUserDto, UpdateUserDto } from '../dto';
-import { VeterinarianQueryParamsDto } from '../dto/query-params.dto';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { PaginatedVeterinariansEntity } from '../entities/paginated-response.entity';
-import { VeterinarianEntity } from '../entities/veterinarian.entity';
-import { UserEntity } from '../entities/user.entity';
+import { VeterinariansService } from '../services';
+import {
+  CreateUserDto,
+  UpdateUserDto,
+  VeterinarianQueryParamsDto,
+} from '../dto';
+import {
+  UserEntity,
+  VeterinarianEntity,
+  PaginatedVeterinariansEntity,
+} from '../entities';
 
 @ApiTags('veterinarians')
 @Controller('veterinarians')
