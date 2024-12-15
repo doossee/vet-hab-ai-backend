@@ -29,13 +29,11 @@ export class UrineColorsService {
     };
 
     const include: any = {
-      district: {
-        inclucde: {},
-      },
+
     };
 
     return paginate(
-      this.prisma.veterinarian,
+      this.prisma.urineColor,
       { where, orderBy, include },
       { page, perPage },
     );

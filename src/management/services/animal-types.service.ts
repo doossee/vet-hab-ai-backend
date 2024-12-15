@@ -29,13 +29,11 @@ export class AnimalTypesService {
     };
 
     const include: any = {
-      district: {
-        inclucde: {},
-      },
+      
     };
 
     return paginate(
-      this.prisma.veterinarian,
+      this.prisma.animalType,
       { where, orderBy, include },
       { page, perPage },
     );

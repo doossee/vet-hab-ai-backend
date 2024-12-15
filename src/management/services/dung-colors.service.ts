@@ -29,13 +29,11 @@ export class DungColorsService {
     };
 
     const include: any = {
-      district: {
-        inclucde: {},
-      },
+      
     };
 
     return paginate(
-      this.prisma.veterinarian,
+      this.prisma.dungColor,
       { where, orderBy, include },
       { page, perPage },
     );

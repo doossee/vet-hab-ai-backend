@@ -29,13 +29,16 @@ export class DistrictsService {
     };
 
     const include: any = {
-      district: {
-        inclucde: {},
-      },
+      region: {
+        select: {
+          id: true,
+          name: true,
+        }
+      }
     };
 
     return paginate(
-      this.prisma.veterinarian,
+      this.prisma.district,
       { where, orderBy, include },
       { page, perPage },
     );
@@ -44,7 +47,14 @@ export class DistrictsService {
   async findOne(id: number) {
     return await this.prisma.district.findUniqueOrThrow({
       where: { id },
-      include: {},
+      include: {
+        region: {
+          select: {
+            id: true,
+            name: true,
+          }
+        }
+      },
     });
   }
 
@@ -53,7 +63,14 @@ export class DistrictsService {
     return await this.prisma.district.update({
       where: { id },
       data,
-      include: {},
+      include: {
+        region: {
+          select: {
+            id: true,
+            name: true,
+          }
+        }
+      },
     });
   }
 

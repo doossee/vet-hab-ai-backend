@@ -29,13 +29,11 @@ export class VetStationsService {
     };
 
     const include: any = {
-      district: {
-        inclucde: {},
-      },
+      
     };
 
     return paginate(
-      this.prisma.veterinarian,
+      this.prisma.vetStation,
       { where, orderBy, include },
       { page, perPage },
     );

@@ -25,13 +25,11 @@ export class ColorsService {
     };
 
     const include: any = {
-      district: {
-        inclucde: {},
-      },
+      
     };
 
     return paginate(
-      this.prisma.veterinarian,
+      this.prisma.color,
       { where, orderBy, include },
       { page, perPage },
     );

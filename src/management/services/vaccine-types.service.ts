@@ -29,13 +29,11 @@ export class VaccineTypesService {
     };
 
     const include: any = {
-      district: {
-        inclucde: {},
-      },
+      
     };
 
     return paginate(
-      this.prisma.veterinarian,
+      this.prisma.vaccineType,
       { where, orderBy, include },
       { page, perPage },
     );

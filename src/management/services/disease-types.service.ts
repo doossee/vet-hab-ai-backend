@@ -29,13 +29,11 @@ export class DiseaseTypesService {
     };
 
     const include: any = {
-      district: {
-        inclucde: {},
-      },
+      
     };
 
     return paginate(
-      this.prisma.veterinarian,
+      this.prisma.diseaseType,
       { where, orderBy, include },
       { page, perPage },
     );

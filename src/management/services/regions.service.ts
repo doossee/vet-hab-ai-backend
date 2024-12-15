@@ -24,10 +24,17 @@ export class RegionsService {
       ...(byId && { id: byId }),
     };
 
-    const include: any = {};
+    const include: any = {
+      districts: {
+        select: {
+          id: true,
+          name: true,
+        }
+      }
+    };
 
     return paginate(
-      this.prisma.veterinarian,
+      this.prisma.region,
       { where, orderBy, include },
       { page, perPage },
     );
@@ -36,7 +43,14 @@ export class RegionsService {
   async findOne(id: number) {
     return await this.prisma.region.findUniqueOrThrow({
       where: { id },
-      include: {},
+      include: {
+        districts: {
+          select: {
+            id: true,
+            name: true,
+          }
+        }
+      },
     });
   }
 
@@ -45,7 +59,14 @@ export class RegionsService {
     return await this.prisma.region.update({
       where: { id },
       data,
-      include: {},
+      include: {
+        districts: {
+          select: {
+            id: true,
+            name: true,
+          }
+        }
+      },
     });
   }
 
