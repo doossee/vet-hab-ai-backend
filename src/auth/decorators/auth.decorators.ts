@@ -28,9 +28,23 @@ export function IsAdminUser() {
   );
 }
 
-export function IsDoctorUser() {
+export function IsVetUser() {
   return applyDecorators(
-    UseGuards(JwtAuthGuard, new RolesGuard([UserRole.DOCTOR])),
+    UseGuards(JwtAuthGuard, new RolesGuard([UserRole.VETERINARIAN])),
+    ApiUnauthorizedResponse({
+      description:
+        'Access denied: User is not authenticated. Please log in to access this resource.',
+    }),
+    ApiForbiddenResponse({
+      description:
+        'Access denied: Only users with Doctor permissions can perform this action.',
+    }),
+  );
+}
+
+export function IsFarmerUser() {
+  return applyDecorators(
+    UseGuards(JwtAuthGuard, new RolesGuard([UserRole.FARMER])),
     ApiUnauthorizedResponse({
       description:
         'Access denied: User is not authenticated. Please log in to access this resource.',

@@ -14,10 +14,8 @@ model Animal {
   gender Gender
   breed  Breed
 
-  age    Int
-  weight Float
-
-  address String
+  birthDate DateTime
+  weight    Float
 
   colorId Int
   color   Color @relation(fields: [colorId], references: [id])
@@ -32,8 +30,9 @@ model Animal {
   generalBloodTests GeneralBloodTest[]
   bloodSerumTests   BloodSerumTest[]
 
+  inspection Inspection[]
   urineTests UrineTest[]
-  dungTests DungTest[]
+  dungTests  DungTest[]
 }
 
 model Vaccine {
@@ -45,7 +44,7 @@ model Vaccine {
   type   VaccineType @relation(fields: [typeId], references: [id])
 
   animalId Int
-  animal   Animal @relation(fields: [animalId], references: [id])
+  animal   Animal @relation(fields: [animalId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

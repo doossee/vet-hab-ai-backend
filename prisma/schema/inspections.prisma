@@ -12,7 +12,7 @@ model GeneralInspection {
   customerType  CustomerType // hayvon mijozi gabitus         Gabitus?
 
   colorId Int
-  color Color @relation(fields: [colorId], references: [id])
+  color   Color @relation(fields: [colorId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -23,16 +23,19 @@ model GeneralInspection {
 model Inspection {
   id Int @id @default(autoincrement())
 
+  animalId Int?
+  animal   Animal? @relation(fields: [animalId], references: [id], onDelete: Cascade)
+
   diseaseId Int?
-  disease Disease? @relation(fields: [diseaseId], references: [id], onDelete: Cascade)
+  disease   Disease? @relation(fields: [diseaseId], references: [id], onDelete: Cascade)
 
   generalInspectionId Int?
-  generalInspection GeneralInspection? @relation(fields: [generalInspectionId], references: [id], onDelete: Cascade)
+  generalInspection   GeneralInspection? @relation(fields: [generalInspectionId], references: [id], onDelete: Cascade)
 
-  temperature     Float // temperatura
-  pulse           Int // puls
-  respiratoryRate Float // nafas soni
-  rumination      Int // ruminatsiya
+  temperature     Float? // temperatura
+  pulse           Int? // puls
+  respiratoryRate Float? // nafas soni
+  rumination      Int? // ruminatsiya
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -45,33 +48,33 @@ model Disease {
   animal   Animal @relation(fields: [animalId], references: [id], onDelete: Cascade)
 
   typeId Int
-  type DiseaseType @relation(fields: [typeId], references: [id])
+  type   DiseaseType @relation(fields: [typeId], references: [id])
 
   startTime DateTime
-  endTime DateTime
+  endTime   DateTime
 
   conclusion String @db.Text()
 
   inspections Inspection[]
-  urineTests UrineTest[]
-  dungTests DungTest[]
+  urineTests  UrineTest[]
+  dungTests   DungTest[]
 }
 
 model GeneralBloodTest {
   id Int @id @default(autoincrement())
 
   date    DateTime // sana 
-  summary String // xulosa
+  conclusion String? // xulosa
 
-  erythrocyteCount Float // eritrosit soni
-  leukocyteCount   Float // leykosit soni
-  thrombocyteCount Float // trobmasit soni
+  erythrocyteCount Float? // eritrosit soni
+  leukocyteCount   Float? // leykosit soni
+  thrombocyteCount Float? // trobmasit soni
 
-  coe                  Float // COE
-  waterPercentage      Float // suv foizda
-  dryResiduePercentage Float // quruq qoldiq
-  hemoglobin           Float // gemoglobin
-  glutathione          Float // glutation
+  coe                  Float? // COE
+  waterPercentage      Float? // suv foizda
+  dryResiduePercentage Float? // quruq qoldiq
+  hemoglobin           Float? // gemoglobin
+  glutathione          Float? // glutation
 
   animalId Int
   animal   Animal @relation(fields: [animalId], references: [id], onDelete: Cascade)
@@ -83,26 +86,26 @@ model GeneralBloodTest {
 model BloodSerumTest {
   id Int @id @default(autoincrement())
 
-  totalProtein      Float // umumiy oqsil
-  totalCalcium      Float // umumiy kalsiy
-  organicPhosphorus Float // organik fosfor
-  albumen           Float // albumin
-  alphaGlobulin     Float // alfa globulin
-  betaGlobulin      Float // beta globulin
-  gammaGlobulin     Float // gamma globulin
-  creatine          Float // kreatin
-  alkalineReserve   Float // ishqoriy zahira
-  glucose           Float // glyukoza
-  totalBilirubin    Float // umumiy bilirubin
-  cholesterol       Float // xolesterin
-  totalLipids       Float // umumiy lipidlar
-  vitaminA          Float // vitamin A
-  vitaminB          Float // vitamin B
-  lacticAcid        Float // laktik kislotasi
-  pyruvicAcid       Float // pirouzum kislotasi
-  citricAcid        Float // limon kislotasi
-  urea              Float // siydik
-  ureaAcid          Float // siydik kislotasi
+  totalProtein      Float? // umumiy oqsil
+  totalCalcium      Float? // umumiy kalsiy
+  organicPhosphorus Float? // organik fosfor
+  albumen           Float? // albumin
+  alphaGlobulin     Float? // alfa globulin
+  betaGlobulin      Float? // beta globulin
+  gammaGlobulin     Float? // gamma globulin
+  creatine          Float? // kreatin
+  alkalineReserve   Float? // ishqoriy zahira
+  glucose           Float? // glyukoza
+  totalBilirubin    Float? // umumiy bilirubin
+  cholesterol       Float? // xolesterin
+  totalLipids       Float? // umumiy lipidlar
+  vitaminA          Float? // vitamin A
+  vitaminB          Float? // vitamin B
+  lacticAcid        Float? // laktik kislotasi
+  pyruvicAcid       Float? // pirouzum kislotasi
+  citricAcid        Float? // limon kislotasi
+  urea              Float? // siydik
+  ureaAcid          Float? // siydik kislotasi
 
   animalId Int
   animal   Animal @relation(fields: [animalId], references: [id], onDelete: Cascade)
@@ -118,10 +121,14 @@ model UrineTest {
   animal   Animal? @relation(fields: [animalId], references: [id], onDelete: Cascade)
 
   diseaseId Int?
-  disease Disease? @relation(fields: [diseaseId], references: [id], onDelete: Cascade)
+  disease   Disease? @relation(fields: [diseaseId], references: [id], onDelete: Cascade)
 
+  colorId Int
+  color   UrineColor @relation(fields: [colorId], references: [id])
+
+  clarity     UrineClarity
   consistency Int
-  smell SmellType
+  smell       SmellType
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -134,12 +141,16 @@ model DungTest {
   animal   Animal? @relation(fields: [animalId], references: [id], onDelete: Cascade)
 
   diseaseId Int?
-  disease Disease? @relation(fields: [diseaseId], references: [id], onDelete: Cascade)
+  disease   Disease? @relation(fields: [diseaseId], references: [id], onDelete: Cascade)
 
+  colorId Int
+  color   DungColor @relation(fields: [colorId], references: [id])
+
+  clarity     DungClarity
+  smell       SmellType
+  form        DungForm
   consistency Int
-  smell SmellType
-  form DungForm
-  worms Int
+  worms       Int
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

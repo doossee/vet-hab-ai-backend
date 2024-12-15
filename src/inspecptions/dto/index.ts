@@ -1,0 +1,7 @@
+export * from './general-inspection.dto';
+export * from './inspecption.dto';
+export * from './disease.dto';
+export * from './general-blood-test.dto';
+export * from './blood-serum-test.dto';
+export * from './urine-test.dto';
+export * from './dung-test.dto';

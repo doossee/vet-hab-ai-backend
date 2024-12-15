@@ -1,0 +1,33 @@
+import { Injectable } from '@nestjs/common';
+import { PrismaService } from 'nestjs-prisma';
+import { CreateDungTestDto, UpdateDungTestDto } from '../dto';
+import { PaginateFunction, paginator } from 'src/common/pagination';
+
+const paginate: PaginateFunction = paginator({ perPage: 30 });
+
+@Injectable()
+export class DungTestsService {
+  constructor(private readonly prisma: PrismaService) {}
+
+  async create(data: CreateDungTestDto) {
+    return await this.prisma.dungTest.create({ data });
+  }
+
+  async findAll() {
+    return await paginate(this.prisma.dungTest);
+  }
+
+  async findOne(id: number) {
+    return await this.prisma.dungTest.findUniqueOrThrow({ where: { id } });
+  }
+
+  async update(id: number, data: UpdateDungTestDto) {
+    await this.prisma.dungTest.findUniqueOrThrow({ where: { id } });
+    return await this.prisma.dungTest.update({ where: { id }, data });
+  }
+
+  async remove(id: number) {
+    await this.prisma.dungTest.findUniqueOrThrow({ where: { id } });
+    return await this.prisma.dungTest.delete({ where: { id } });
+  }
+}

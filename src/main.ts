@@ -34,6 +34,7 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
+
   SwaggerModule.setup('swagger', app, document);
   RapidocModule.setup('rapidoc', app, document);
 

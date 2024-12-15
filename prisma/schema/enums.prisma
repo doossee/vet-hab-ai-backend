@@ -5,7 +5,7 @@ enum UserRole {
 }
 
 enum Gender {
-  MALE  // erkak
+  MALE // erkak
   FEMALE // ayol
 }
 
@@ -49,7 +49,7 @@ enum InspectionType {
 
 enum SmellType {
   PUNGENT // o'tkir
-  WEAK  // kuchsiz
+  WEAK // kuchsiz
   HAS // hidi bor
   NO // hidi yo'q
 }
@@ -59,4 +59,14 @@ enum DungForm {
   SOLID // qattiq
   LIQUID // suyuq
   MEDIUM // o'rta
+}
+
+enum UrineClarity {
+  CLEAR // tiniq
+  NOT_CLEAR // tiniq emas
+}
+
+enum DungClarity {
+  CLEAR // tiniq
+  NOT_CLEAR // tiniq emas
 }

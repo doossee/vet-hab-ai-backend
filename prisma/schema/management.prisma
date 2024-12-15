@@ -1,3 +1,10 @@
+model Region {
+  id Int @id @default(autoincrement())
+
+  name      String     @unique
+  districts District[]
+}
+
 model District {
   id Int @id @default(autoincrement())
 
@@ -7,13 +14,6 @@ model District {
 
   users       User[]
   vetStations VetStation[]
-}
-
-model Region {
-  id Int @id @default(autoincrement())
-
-  name      String     @unique
-  districts District[]
 }
 
 model VetStation {
@@ -40,9 +40,9 @@ model Color {
   id Int @id @default(autoincrement())
 
   name String
-  hex String?
+  hex  String?
 
-  animals Animal[]
+  animals            Animal[]
   generalInspections GeneralInspection[]
 }
 
@@ -50,12 +50,16 @@ model UrineColor {
   id Int @id @default(autoincrement())
 
   name String
+
+  urineTests UrineTest[]
 }
 
-model StoolColor {
+model DungColor {
   id Int @id @default(autoincrement())
 
   name String
+
+  dungTests DungTest[]
 }
 
 model VaccineType {
