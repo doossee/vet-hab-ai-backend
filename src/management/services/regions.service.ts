@@ -24,11 +24,7 @@ export class RegionsService {
       ...(byId && { id: byId }),
     };
 
-    const include: any = {
-      district: {
-        inclucde: {},
-      },
-    };
+    const include: any = {};
 
     return paginate(
       this.prisma.veterinarian,
