@@ -92,14 +92,18 @@ export class FarmersService {
 
     const include: any = {
       user: {
-        district: {
-          region: {
-            select: {
-              name: true,
-            },
-          },
-        },
-      },
+        include: {
+          district: {
+            include: {
+              region: {
+                select: {
+                  name: true
+                }
+              }
+            }
+          }
+        }
+      }
     };
 
     return paginate(
@@ -110,7 +114,24 @@ export class FarmersService {
   }
 
   async findOne(id: number) {
-    return await this.prisma.farmer.findUniqueOrThrow({ where: { id } });
+    return await this.prisma.farmer.findUniqueOrThrow({ 
+      where: { id },
+      include: {
+        user: {
+          include: {
+            district: {
+              include: {
+                region: {
+                  select: {
+                    name: true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    });
   }
 
   async update(id: number, data: UpdateFarmerDto) {
@@ -124,6 +145,21 @@ export class FarmersService {
           },
         },
       },
+      include: {
+        user: {
+          include: {
+            district: {
+              include: {
+                region: {
+                  select: {
+                    name: true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     });
   }
 

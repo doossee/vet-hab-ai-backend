@@ -83,7 +83,7 @@ export class UsersService {
 
     const include: any = {
       district: {
-        inclucde: {
+        include: {
           region: {
             select: {
               name: true,
