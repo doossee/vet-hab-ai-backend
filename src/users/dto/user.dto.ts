@@ -29,19 +29,9 @@ export class CreateUserDto {
   @IsNotEmpty()
   @ApiProperty({
     description: "The user's password (hashed)",
-    example: 'hashed_password_string',
+    example: '123qazwsx',
   })
   readonly password: string;
-
-  @IsString()
-  @IsOptional()
-  @ApiProperty({
-    description: "The user's refresh token",
-    example: 'refresh_token_string',
-    required: false,
-    nullable: true,
-  })
-  readonly refreshToken?: string | null;
 
   @IsString()
   @MinLength(1, { message: 'First name must be at least 1 character long' })
