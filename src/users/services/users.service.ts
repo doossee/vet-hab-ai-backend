@@ -94,7 +94,7 @@ export class UsersService {
     };
 
     return paginate(
-      this.prisma.veterinarian,
+      this.prisma.user,
       { where, orderBy, include },
       { page, perPage },
     );
