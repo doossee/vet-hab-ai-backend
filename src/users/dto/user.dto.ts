@@ -86,7 +86,7 @@ export class CreateUserDto {
     required: false,
     nullable: true,
   })
-  readonly birthdate?: Date | string | null;
+  readonly birthDate?: Date | string | null;
 
   @IsInt()
   @IsPositive({ message: 'District ID must be a positive integer' })
