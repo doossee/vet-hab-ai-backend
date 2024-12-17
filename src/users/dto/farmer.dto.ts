@@ -12,8 +12,7 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { Gender, UserRole } from '@prisma/client';
-import { VeterinariansService } from '../services/veterinarians.service';
+import { Gender } from '@prisma/client';
 
 export class CreateFarmerDto {
   @IsString()
@@ -33,16 +32,6 @@ export class CreateFarmerDto {
     example: 'hashed_password_string',
   })
   readonly password: string;
-
-  @IsString()
-  @IsOptional()
-  @ApiProperty({
-    description: "The user's refresh token",
-    example: 'refresh_token_string',
-    required: false,
-    nullable: true,
-  })
-  readonly refreshToken?: string | null;
 
   @IsString()
   @MinLength(1, { message: 'First name must be at least 1 character long' })

@@ -12,8 +12,7 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { Gender, UserRole } from '@prisma/client';
-import { VeterinariansService } from '../services/veterinarians.service';
+import { Gender } from '@prisma/client';
 
 export class CreateVeterinarianDto {
   @IsString()
