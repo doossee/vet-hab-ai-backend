@@ -13,18 +13,19 @@ export class FarmersService {
   constructor(private readonly prisma: PrismaService) {}
   async create(data: CreateFarmerDto) {
     try {
-      const hashedPassword = await bcrypt.hash(data.password, 10);
+      const { veterinarianId, password, ...userData } = data;
+      const hashedPassword = await bcrypt.hash(password, 10);
 
       return await this.prisma.farmer.create({
         data: {
           veterinarian: {
             connect: {
-              id: data.veterinarianId,
+              id: veterinarianId,
             },
           },
           user: {
             create: {
-              ...data,
+              ...userData,
               password: hashedPassword,
               role: UserRole.FARMER,
             },
