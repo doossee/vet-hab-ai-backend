@@ -57,7 +57,7 @@ export class CreateGeneralBloodTestDto {
       'The count of thrombocytes (platelets) measured in thousands per microliter.',
     example: 250,
   })
-  readonly thrombocyCount?: number;
+  readonly thrombocyteCount?: number;
 
   @IsNumber()
   @IsPositive()
