@@ -108,7 +108,7 @@ export class FarmersService {
     };
 
     return paginate(
-      this.prisma.veterinarian,
+      this.prisma.farmer,
       { where, orderBy, include },
       { page, perPage },
     );
