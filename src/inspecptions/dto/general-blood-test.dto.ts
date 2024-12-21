@@ -9,6 +9,7 @@ import {
   IsPositive,
   IsString,
 } from 'class-validator';
+import { IsEntityExist } from 'src/common/validators';
 
 export class CreateGeneralBloodTestDto {
   @IsDate()
@@ -109,6 +110,9 @@ export class CreateGeneralBloodTestDto {
   @IsInt()
   @IsPositive()
   @IsNotEmpty()
+  @IsEntityExist('animal', {
+    message: 'Animal with given ID does not exist',
+  })
   @ApiProperty({
     description:
       'The ID of the animal the general blood test is associated with.',

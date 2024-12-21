@@ -12,6 +12,7 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
+import { IsEntityExist } from 'src/common/validators';
 
 export class CreateAnimalDto {
   @IsString()
@@ -40,6 +41,9 @@ export class CreateAnimalDto {
   @IsInt()
   @IsPositive()
   @IsNotEmpty()
+  @IsEntityExist('animal', {
+    message: 'Animal with given ID does not exist',
+  })
   @ApiProperty({
     description: 'ID of the farmer who owns the animal',
     example: 1,
@@ -49,6 +53,9 @@ export class CreateAnimalDto {
   @IsInt()
   @IsPositive()
   @IsNotEmpty()
+  @IsEntityExist('animalType', {
+    message: 'Animal type with given ID does not exist',
+  }) 
   @ApiProperty({
     description: 'ID representing the type of the animal',
     example: 5,
@@ -107,6 +114,9 @@ export class CreateAnimalDto {
   @IsInt()
   @IsPositive()
   @IsNotEmpty()
+  @IsEntityExist('color', {
+    message: 'Color with given ID does not exist',
+  })
   @ApiProperty({
     description: 'ID of the color representing the animal',
     example: 3,

@@ -6,11 +6,15 @@ import {
   IsOptional,
   IsPositive,
 } from 'class-validator';
+import { IsEntityExist } from 'src/common/validators';
 
 export class CreateInspectionDto {
   @IsInt()
   @IsPositive()
   @IsOptional()
+  @IsEntityExist('animal', {
+    message: 'Animal with given ID does not exist',
+  })
   @ApiProperty({
     description:
       'The ID of the animal being inspected. This field is optional.',
@@ -21,6 +25,9 @@ export class CreateInspectionDto {
   @IsInt()
   @IsPositive()
   @IsOptional()
+  @IsEntityExist('disease', {
+    message: 'Disease with given ID does not exist',
+  })
   @ApiProperty({
     description:
       'The ID of the disease associated with the inspection. This field is optional.',
@@ -31,6 +38,9 @@ export class CreateInspectionDto {
   @IsInt()
   @IsPositive()
   @IsOptional()
+  @IsEntityExist('generalInspection', {
+    message: 'General inspection with given ID does not exist',
+  })
   @ApiProperty({
     description:
       'The ID of the general inspection record. This field is optional.',

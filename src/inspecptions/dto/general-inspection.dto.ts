@@ -6,11 +6,15 @@ import {
   ObesityType,
 } from '@prisma/client';
 import { IsEnum, IsInt, IsNotEmpty, IsPositive } from 'class-validator';
+import { IsEntityExist } from 'src/common/validators';
 
 export class CreateGeneralInspectionDto {
   @IsInt()
   @IsPositive()
   @IsNotEmpty()
+  @IsEntityExist('animal', {
+    message: 'Animal with given ID does not exist',
+  })
   @ApiProperty({
     description: 'The ID of the animal undergoing the general inspection.',
     example: 101,
@@ -56,6 +60,9 @@ export class CreateGeneralInspectionDto {
   @IsInt()
   @IsPositive()
   @IsNotEmpty()
+  @IsEntityExist('color', {
+    message: 'Color with given ID does not exist',
+  })
   @ApiProperty({
     description: 'The ID representing the color of the animal.',
     example: 3,

@@ -13,6 +13,7 @@ import {
   MinLength,
 } from 'class-validator';
 import { Gender, UserRole } from '@prisma/client';
+import { IsEntityExist } from 'src/common/validators';
 
 export class CreateUserDto {
   @IsString()
@@ -91,6 +92,9 @@ export class CreateUserDto {
   @IsInt()
   @IsPositive({ message: 'District ID must be a positive integer' })
   @IsNotEmpty()
+  @IsEntityExist('district', {
+    message: 'District with given ID does not exist',
+  })
   @ApiProperty({
     description: "The identifier of the user's district",
     example: 101,

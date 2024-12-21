@@ -7,11 +7,15 @@ import {
   IsOptional,
   IsPositive,
 } from 'class-validator';
+import { IsEntityExist } from 'src/common/validators';
 
 export class CreateDungTestDto {
   @IsInt()
   @IsPositive()
   @IsOptional()
+  @IsEntityExist('animal', {
+    message: 'Animal with given ID does not exist',
+  })
   @ApiProperty({
     description: 'The ID of the animal associated with the dung test.',
     example: 101,
@@ -21,6 +25,9 @@ export class CreateDungTestDto {
   @IsInt()
   @IsPositive()
   @IsOptional()
+  @IsEntityExist('disease', {
+    message: 'Disease with given ID does not exist',
+  })
   @ApiProperty({
     description:
       'The ID of the disease associated with the dung test, if applicable.',
@@ -31,6 +38,9 @@ export class CreateDungTestDto {
   @IsInt()
   @IsPositive()
   @IsNotEmpty()
+  @IsEntityExist('color', {
+    message: 'Color with given ID does not exist',
+  })
   @ApiProperty({
     description: 'The ID of the color associated with the dung.',
     example: 3,

@@ -8,11 +8,15 @@ import {
   IsPositive,
   IsString,
 } from 'class-validator';
+import { IsEntityExist } from 'src/common/validators';
 
 export class CreateDiseaseDto {
   @IsInt()
   @IsPositive()
   @IsNotEmpty()
+  @IsEntityExist('animal', {
+    message: 'Animal with given ID does not exist',
+  })
   @ApiProperty({
     description: 'The ID of the animal associated with the disease record.',
     example: 101,
@@ -22,6 +26,9 @@ export class CreateDiseaseDto {
   @IsInt()
   @IsPositive()
   @IsNotEmpty()
+  @IsEntityExist('diseaseType', {
+    message: 'Disease type with given ID does not exist',
+  })
   @ApiProperty({
     description:
       'The type ID of the disease (e.g., bacterial, viral, parasitic).',

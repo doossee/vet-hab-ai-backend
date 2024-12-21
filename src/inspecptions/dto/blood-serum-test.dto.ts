@@ -6,6 +6,7 @@ import {
   IsOptional,
   IsPositive,
 } from 'class-validator';
+import { IsEntityExist } from 'src/common/validators';
 
 export class CreateBloodSerumTestDto {
   @IsNumber()
@@ -191,6 +192,9 @@ export class CreateBloodSerumTestDto {
   @IsInt()
   @IsPositive()
   @IsNotEmpty()
+  @IsEntityExist('animal', {
+    message: 'Animal with given ID does not exist',
+  })
   @ApiProperty({
     description:
       'The ID of the animal the blood serum test is associated with.',

@@ -7,11 +7,15 @@ import {
   IsOptional,
   IsPositive,
 } from 'class-validator';
+import { IsEntityExist } from 'src/common/validators';
 
 export class CreateUrineTestDto {
   @IsInt()
   @IsPositive()
   @IsOptional()
+  @IsEntityExist('animal', {
+    message: 'Animal with given ID does not exist',
+  })
   @ApiProperty({
     description: 'The ID of the animal associated with the urine test.',
     example: 102,
@@ -21,6 +25,9 @@ export class CreateUrineTestDto {
   @IsInt()
   @IsPositive()
   @IsOptional()
+  @IsEntityExist('disease', {
+    message: 'Disease with given ID does not exist',
+  })
   @ApiProperty({
     description: 'The ID of the disease suspected or diagnosed in the animal.',
     example: 12,
@@ -30,6 +37,9 @@ export class CreateUrineTestDto {
   @IsInt()
   @IsPositive()
   @IsNotEmpty()
+  @IsEntityExist('color', {
+    message: 'Color with given ID does not exist',
+  })
   @ApiProperty({
     description: 'The ID of the color classification of the urine.',
     example: 5,
