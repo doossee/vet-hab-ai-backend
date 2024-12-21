@@ -4,7 +4,10 @@ import { IsNotEmpty, IsString } from 'class-validator';
 export class CreateUrineColorDto {
   @IsString()
   @IsNotEmpty()
-  @ApiProperty()
+  @ApiProperty({
+    description: 'The name of the urine color',
+    example: 'Yellow',
+  })
   readonly name: string;
 }
 export class UpdateUrineColorDto extends PartialType(CreateUrineColorDto) {}

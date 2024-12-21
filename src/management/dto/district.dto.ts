@@ -5,7 +5,10 @@ import { IsEntityExist } from 'src/common/validators';
 export class CreateDistrictDto {
   @IsString()
   @IsNotEmpty()
-  @ApiProperty()
+  @ApiProperty({
+    description: 'The name of the district',
+    example: 'Downtown',
+  })
   readonly name: string;
 
   @IsInt()
@@ -14,7 +17,10 @@ export class CreateDistrictDto {
   @IsEntityExist('region', {
     message: 'Region with given ID does not exist',
   })
-  @ApiProperty()
+  @ApiProperty({
+    description: 'The ID of the region',
+    example: 1,
+  })
   readonly regionId: number;
 }
 export class UpdateDistrictDto extends PartialType(CreateDistrictDto) {}

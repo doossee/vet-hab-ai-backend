@@ -5,18 +5,27 @@ import { IsEntityExist } from 'src/common/validators';
 export class CreateVetStationDto {
   @IsString()
   @IsNotEmpty()
-  @ApiProperty()
+  @ApiProperty({
+    description: 'The name of the vet station',
+    example: 'Downtown Vet Station',
+  })
   readonly name: string;
 
   @IsString()
   @IsNotEmpty()
-  @ApiProperty()
+  @ApiProperty({
+    description: 'The address of the vet station',
+    example: '123 Main St',
+  })
   readonly address: string;
 
   @IsInt()
   @IsPositive()
   @IsNotEmpty()
-  @ApiProperty()
+  @ApiProperty({
+    description: 'The ID of the district',
+    example: 1,
+  })
   @IsEntityExist('district', {
     message: 'District with given ID does not exist',
   })
