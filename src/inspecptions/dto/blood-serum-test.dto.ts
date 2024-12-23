@@ -106,7 +106,7 @@ export class CreateBloodSerumTestDto {
     description: 'The total bilirubin level in the blood serum (mg/dL).',
     example: 0.8,
   })
-  readonly totalBilrubin?: number;
+  readonly totalBilirubin?: number;
 
   @IsNumber()
   @IsPositive()

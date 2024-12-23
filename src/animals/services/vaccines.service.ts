@@ -68,12 +68,6 @@ export class VaccinesService {
           name: true,
         },
       },
-      color: {
-        select: {
-          name: true,
-          hex: true,
-        },
-      },
     };
 
     return paginate(
