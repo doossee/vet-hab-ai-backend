@@ -77,7 +77,7 @@ export class VaccinesService {
     };
 
     return paginate(
-      this.prisma.animal,
+      this.prisma.vaccine,
       { where, orderBy, include },
       { page, perPage },
     );
