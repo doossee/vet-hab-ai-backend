@@ -106,7 +106,7 @@ export class CreateBloodSerumTestDto {
     description: 'The total bilirubin level in the blood serum (mg/dL).',
     example: 0.8,
   })
-  readonly totalBilburbin?: number;
+  readonly totalBilrubin?: number;
 
   @IsNumber()
   @IsPositive()
@@ -160,7 +160,7 @@ export class CreateBloodSerumTestDto {
     description: 'The pyruvic acid level in the blood serum (mg/dL).',
     example: 1.2,
   })
-  readonly pyruvicAid?: number;
+  readonly pyruvicAcid?: number;
 
   @IsNumber()
   @IsPositive()
