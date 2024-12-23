@@ -38,8 +38,8 @@ export class CreateDungTestDto {
   @IsInt()
   @IsPositive()
   @IsNotEmpty()
-  @IsEntityExist('color', {
-    message: 'Color with given ID does not exist',
+  @IsEntityExist('dungColor', {
+    message: 'Dung color with given ID does not exist',
   })
   @ApiProperty({
     description: 'The ID of the color associated with the dung.',

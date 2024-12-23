@@ -37,8 +37,8 @@ export class CreateUrineTestDto {
   @IsInt()
   @IsPositive()
   @IsNotEmpty()
-  @IsEntityExist('color', {
-    message: 'Color with given ID does not exist',
+  @IsEntityExist('urineColor', {
+    message: 'Urine color with given ID does not exist',
   })
   @ApiProperty({
     description: 'The ID of the color classification of the urine.',
