@@ -50,13 +50,11 @@ export class UsersService {
 
     const where: Prisma.UserWhereInput = {
       ...(search && {
-        user: {
-          OR: [
-            { firstName: { contains: search, mode: 'insensitive' } },
-            { lastName: { contains: search, mode: 'insensitive' } },
-            { middleName: { contains: search, mode: 'insensitive' } },
-          ],
-        },
+        OR: [
+          { firstName: { contains: search, mode: 'insensitive' } },
+          { lastName: { contains: search, mode: 'insensitive' } },
+          { middleName: { contains: search, mode: 'insensitive' } },
+        ],
       }),
       ...(gender && { gender: gender }),
       ...(role && { role: role }),
