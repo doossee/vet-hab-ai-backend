@@ -1,21 +1,21 @@
 model GeneralInspection {
   id Int @id @default(autoincrement())
 
-  animalId Int
+  animalId Int @map("animal_id")
   animal   Animal @relation(fields: [animalId], references: [id], onDelete: Cascade)
 
   // Gabitus
 
-  bodyType      BodyType // jussasi
-  bodyStructure BodyStructure // tana tuzilishi
+  bodyType      BodyType @map("body_type") // jussasi
+  bodyStructure BodyStructure @map("body_structure") // tana tuzilishi
   obesity       ObesityType // semizligi
-  customerType  CustomerType // hayvon mijozi gabitus         Gabitus?
+  customerType  CustomerType @map("customer_type") // hayvon mijozi gabitus         Gabitus?
 
-  colorId Int
+  colorId Int @map("color_id")
   color   Color @relation(fields: [colorId], references: [id])
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   inspections Inspection[]
 }
@@ -23,35 +23,35 @@ model GeneralInspection {
 model Inspection {
   id Int @id @default(autoincrement())
 
-  animalId Int?
+  animalId Int? @map("animal_id")
   animal   Animal? @relation(fields: [animalId], references: [id], onDelete: Cascade)
 
-  diseaseId Int?
+  diseaseId Int? @map("disease_id")
   disease   Disease? @relation(fields: [diseaseId], references: [id], onDelete: Cascade)
 
-  generalInspectionId Int?
+  generalInspectionId Int? @map("general_inspection_id")
   generalInspection   GeneralInspection? @relation(fields: [generalInspectionId], references: [id], onDelete: Cascade)
 
   temperature     Float? // temperatura
   pulse           Int? // puls
-  respiratoryRate Float? // nafas soni
+  respiratoryRate Float? @map("respiratory_rate")// nafas soni
   rumination      Int? // ruminatsiya
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 }
 
 model Disease {
   id Int @id @default(autoincrement())
 
-  animalId Int
+  animalId Int @map("animal_id")
   animal   Animal @relation(fields: [animalId], references: [id], onDelete: Cascade)
 
-  typeId Int
+  typeId Int @map("type_id")
   type   DiseaseType @relation(fields: [typeId], references: [id])
 
-  startTime DateTime
-  endTime   DateTime
+  startTime DateTime @map("start_time")
+  endTime   DateTime @map("end_time")
 
   conclusion String @db.Text()
 
@@ -63,87 +63,87 @@ model Disease {
 model GeneralBloodTest {
   id Int @id @default(autoincrement())
 
-  date    DateTime // sana 
+  date       DateTime // sana 
   conclusion String? // xulosa
 
-  erythrocyteCount Float? // eritrosit soni
-  leukocyteCount   Float? // leykosit soni
-  thrombocyteCount Float? // trobmasit soni
+  erythrocyteCount Float? @map("erythrocyte_count") // eritrosit soni
+  leukocyteCount   Float? @map("leukocyte_count") // leykosit soni
+  thrombocyteCount Float? @map("thrombocyte_count") // trobmasit soni
 
   coe                  Float? // COE
-  waterPercentage      Float? // suv foizda
-  dryResiduePercentage Float? // quruq qoldiq
+  waterPercentage      Float? @map("water_percentage") // suv foizda
+  dryResiduePercentage Float? @map("dry_residue_percentage")// quruq qoldiq
   hemoglobin           Float? // gemoglobin
   glutathione          Float? // glutation
 
-  animalId Int
+  animalId Int @map("animal_id")
   animal   Animal @relation(fields: [animalId], references: [id], onDelete: Cascade)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 }
 
 model BloodSerumTest {
   id Int @id @default(autoincrement())
 
-  totalProtein      Float? // umumiy oqsil
-  totalCalcium      Float? // umumiy kalsiy
-  organicPhosphorus Float? // organik fosfor
+  totalProtein      Float? @map("total_protein") // umumiy oqsil
+  totalCalcium      Float? @map("total_calcium") // umumiy kalsiy
+  organicPhosphorus Float? @map("organic_phosphorus") // organik fosfor
   albumen           Float? // albumin
-  alphaGlobulin     Float? // alfa globulin
-  betaGlobulin      Float? // beta globulin
-  gammaGlobulin     Float? // gamma globulin
+  alphaGlobulin     Float? @map("alpha_globulin") // alfa globulin
+  betaGlobulin      Float? @map("beta_globulin") // beta globulin
+  gammaGlobulin     Float? @map("gamma_globulin") // gamma globulin
   creatine          Float? // kreatin
-  alkalineReserve   Float? // ishqoriy zahira
+  alkalineReserve   Float? @map("alkaline_reserve") // ishqoriy zahira
   glucose           Float? // glyukoza
-  totalBilirubin    Float? // umumiy bilirubin
+  totalBilirubin    Float? @map("total_bilirubin") // umumiy bilirubin
   cholesterol       Float? // xolesterin
-  totalLipids       Float? // umumiy lipidlar
-  vitaminA          Float? // vitamin A
-  vitaminB          Float? // vitamin B
-  lacticAcid        Float? // laktik kislotasi
-  pyruvicAcid       Float? // pirouzum kislotasi
-  citricAcid        Float? // limon kislotasi
+  totalLipids       Float? @map("total_lipids") // umumiy lipidlar
+  vitaminA          Float? @map("vitamin_a") // vitamin A
+  vitaminB          Float? @map("vitamin_b") // vitamin B
+  lacticAcid        Float? @map("lactic_acid") // laktik kislotasi
+  pyruvicAcid       Float? @map("pyruvic_acid") // pirouzum kislotasi
+  citricAcid        Float? @map("citric_acid") // limon kislotasi
   urea              Float? // siydik
-  ureaAcid          Float? // siydik kislotasi
+  ureaAcid          Float? @map("urea_acid") // siydik kislotasi
 
-  animalId Int
+  animalId Int @map("animal_id")
   animal   Animal @relation(fields: [animalId], references: [id], onDelete: Cascade)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 }
 
 model UrineTest {
   id Int @id @default(autoincrement())
 
-  animalId Int?
+  animalId Int? @map("animal_id")
   animal   Animal? @relation(fields: [animalId], references: [id], onDelete: Cascade)
 
-  diseaseId Int?
+  diseaseId Int? @map("disease_id")
   disease   Disease? @relation(fields: [diseaseId], references: [id], onDelete: Cascade)
 
-  colorId Int
+  colorId Int @map("color_id")
   color   UrineColor @relation(fields: [colorId], references: [id])
 
   clarity     UrineClarity
   consistency Int
   smell       SmellType
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 }
 
 model DungTest {
   id Int @id @default(autoincrement())
 
-  animalId Int?
+  animalId Int? @map("animal_id")
   animal   Animal? @relation(fields: [animalId], references: [id], onDelete: Cascade)
 
-  diseaseId Int?
+  diseaseId Int? @map("disease_id")
   disease   Disease? @relation(fields: [diseaseId], references: [id], onDelete: Cascade)
 
-  colorId Int
+  colorId Int @map("color_id")
   color   DungColor @relation(fields: [colorId], references: [id])
 
   clarity     DungClarity
@@ -152,6 +152,6 @@ model DungTest {
   consistency Int
   worms       Int
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 }

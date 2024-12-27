@@ -55,7 +55,7 @@ export class CreateAnimalDto {
   @IsNotEmpty()
   @IsEntityExist('animalType', {
     message: 'Animal type with given ID does not exist',
-  }) 
+  })
   @ApiProperty({
     description: 'ID representing the type of the animal',
     example: 5,

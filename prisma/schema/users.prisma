@@ -4,41 +4,41 @@ model User {
   phone    String @unique
   password String
 
-  firstName  String
-  lastName   String
-  middleName String?
+  firstName  String  @map("first_name")
+  lastName   String  @map("last_name")
+  middleName String? @map("middle_name")
 
   gender     Gender?
-  birthDate  DateTime?
-  districtId Int
+  birthDate  DateTime? @map("birth_date")
+  districtId Int       @map("district_id")
   district   District  @relation(fields: [districtId], references: [id])
   address    String?
   role       UserRole
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   veterinarianData Veterinarian?
   farmerData       Farmer?
 }
 
 model Veterinarian {
-  id Int @id @default(autoincrement())
-
-  userId Int  @unique
-  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userPtrId Int  @id @default(autoincrement()) @map("user_ptr_id")
+  user      User @relation(fields: [userPtrId], references: [id], onDelete: Cascade)
 
   farmers Farmer[]
+
+  @@unique([userPtrId])
 }
 
 model Farmer {
-  id Int @id @default(autoincrement())
+  userPtrId Int  @id @default(autoincrement()) @map("user_ptr_id")
+  user      User @relation(fields: [userPtrId], references: [id], onDelete: Cascade)
 
-  userId Int  @unique
-  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  veterinarianId Int
-  veterinarian   Veterinarian @relation(fields: [veterinarianId], references: [id])
+  veterinarianId Int          @map("veterinarian_id")
+  veterinarian   Veterinarian @relation(fields: [veterinarianId], references: [userPtrId])
 
   animals Animal[]
+
+  @@unique([userPtrId])
 }

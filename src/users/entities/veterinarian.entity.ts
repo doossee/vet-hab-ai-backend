@@ -12,16 +12,10 @@ export class VeterinarianEntity implements Veterinarian {
   }
 
   @ApiProperty({
-    description: 'Unique identifier of the veterinarian',
+    description: 'Unique identifier of the veterinarian that points to user',
     example: 1,
   })
-  id: number;
-
-  @ApiProperty({
-    description: 'User ID associated with the veterinarian',
-    example: 42,
-  })
-  userId: number;
+  userPtrId: number;
 
   @ApiProperty({
     description: 'User data associated with the veterinarian',

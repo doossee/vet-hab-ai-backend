@@ -28,9 +28,7 @@ export class VaccineTypesService {
       ...(byId && { id: byId }),
     };
 
-    const include: any = {
-      
-    };
+    const include: any = {};
 
     return paginate(
       this.prisma.vaccineType,

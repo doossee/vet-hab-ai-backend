@@ -16,4 +16,10 @@ export class AuthEntity {
 
   @ApiProperty({ readOnly: true })
   userRole?: UserRole;
+
+  @ApiProperty({ readOnly: true })
+  veterinarianId?: number;
+
+  @ApiProperty({ readOnly: true })
+  farmerId?: number;
 }

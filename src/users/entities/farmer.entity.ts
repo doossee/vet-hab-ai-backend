@@ -16,14 +16,11 @@ export class FarmerEntity implements Farmer {
     }
   }
 
-  @ApiProperty({ description: 'Unique identifier of the farmer', example: 1 })
-  id: number;
-
   @ApiProperty({
-    description: 'User ID associated with the farmer',
-    example: 42,
+    description: 'Unique identifier of the farmer that points to user',
+    example: 1,
   })
-  userId: number;
+  userPtrId: number;
 
   @ApiProperty({
     description: 'User data associated with the farmer',

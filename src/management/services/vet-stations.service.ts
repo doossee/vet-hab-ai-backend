@@ -28,9 +28,7 @@ export class VetStationsService {
       ...(byId && { id: byId }),
     };
 
-    const include: any = {
-      
-    };
+    const include: any = {};
 
     return paginate(
       this.prisma.vetStation,

@@ -33,8 +33,8 @@ export class DistrictsService {
         select: {
           id: true,
           name: true,
-        }
-      }
+        },
+      },
     };
 
     return paginate(
@@ -52,8 +52,8 @@ export class DistrictsService {
           select: {
             id: true,
             name: true,
-          }
-        }
+          },
+        },
       },
     });
   }
@@ -68,8 +68,8 @@ export class DistrictsService {
           select: {
             id: true,
             name: true,
-          }
-        }
+          },
+        },
       },
     });
   }

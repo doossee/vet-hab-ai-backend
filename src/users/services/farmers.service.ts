@@ -16,21 +16,40 @@ export class FarmersService {
       const { veterinarianId, password, ...userData } = data;
       const hashedPassword = await bcrypt.hash(password, 10);
 
-      return await this.prisma.farmer.create({
+      // Create the user first
+      const user = await this.prisma.user.create({
         data: {
-          veterinarian: {
-            connect: {
-              id: veterinarianId,
-            },
-          },
-          user: {
-            create: {
-              ...userData,
-              password: hashedPassword,
-              role: UserRole.FARMER,
-            },
-          },
+          ...userData,
+          password: hashedPassword,
+          role: UserRole.FARMER,
         },
+      });
+
+      // Create the farmer and link it to the user
+      const farmer = await this.prisma.farmer.create({
+        data: {
+          userPtrId: user.id,
+          veterinarianId,
+        },
+      });
+
+      return await this.prisma.veterinarian.findUnique({
+        where: { userPtrId: farmer.userPtrId },
+        include: {
+          user: {
+            include: {
+              district: {
+                include: {
+                  region: {
+                    select: {
+                      name: true,
+                    },
+                  },
+                },
+              },
+            },
+          },
+        }
       });
     } catch (error) {
       if (error.code === 'P2002') {
@@ -98,13 +117,13 @@ export class FarmersService {
             include: {
               region: {
                 select: {
-                  name: true
-                }
-              }
-            }
-          }
-        }
-      }
+                  name: true,
+                },
+              },
+            },
+          },
+        },
+      },
     };
 
     return paginate(
@@ -115,8 +134,8 @@ export class FarmersService {
   }
 
   async findOne(id: number) {
-    return await this.prisma.farmer.findUniqueOrThrow({ 
-      where: { id },
+    return await this.prisma.farmer.findUniqueOrThrow({
+      where: { userPtrId: id },
       include: {
         user: {
           include: {
@@ -124,21 +143,21 @@ export class FarmersService {
               include: {
                 region: {
                   select: {
-                    name: true
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+                    name: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
     });
   }
 
   async update(id: number, data: UpdateFarmerDto) {
-    await this.prisma.farmer.findUniqueOrThrow({ where: { id } });
+    await this.prisma.farmer.findUniqueOrThrow({ where: { userPtrId: id } });
     return await this.prisma.farmer.update({
-      where: { id },
+      where: { userPtrId: id },
       data: {
         user: {
           update: {
@@ -153,21 +172,21 @@ export class FarmersService {
               include: {
                 region: {
                   select: {
-                    name: true
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+                    name: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
     });
   }
 
   async remove(id: number) {
     const farmer = await this.prisma.farmer.findUniqueOrThrow({
-      where: { id },
+      where: { userPtrId: id },
     });
-    return await this.prisma.user.delete({ where: { id: farmer.userId } });
+    return await this.prisma.user.delete({ where: { id: farmer.userPtrId } });
   }
 }

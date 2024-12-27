@@ -29,8 +29,8 @@ export class RegionsService {
         select: {
           id: true,
           name: true,
-        }
-      }
+        },
+      },
     };
 
     return paginate(
@@ -48,8 +48,8 @@ export class RegionsService {
           select: {
             id: true,
             name: true,
-          }
-        }
+          },
+        },
       },
     });
   }
@@ -64,8 +64,8 @@ export class RegionsService {
           select: {
             id: true,
             name: true,
-          }
-        }
+          },
+        },
       },
     });
   }

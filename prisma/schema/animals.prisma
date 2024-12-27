@@ -1,13 +1,13 @@
 model Animal {
   id Int @id @default(autoincrement())
 
-  idCode      String
-  arrivalDate DateTime
+  idCode      String   @unique @map("id_code")
+  arrivalDate DateTime @map("arrival_date")
 
-  farmerId Int
-  farmer   Farmer @relation(fields: [farmerId], references: [id])
+  farmerId Int    @map("farmer_id")
+  farmer   Farmer @relation(fields: [farmerId], references: [userPtrId])
 
-  typeId Int
+  typeId Int        @map("type_id")
   type   AnimalType @relation(fields: [typeId], references: [id])
 
   name   String
@@ -17,7 +17,7 @@ model Animal {
   birthDate DateTime
   weight    Float
 
-  colorId Int
+  colorId Int   @map("color_id")
   color   Color @relation(fields: [colorId], references: [id])
 
   createdAt DateTime @default(now())
@@ -40,7 +40,7 @@ model Vaccine {
 
   date DateTime
 
-  typeId Int
+  typeId Int         @map("type_id")
   type   VaccineType @relation(fields: [typeId], references: [id])
 
   animalId Int

@@ -15,16 +15,39 @@ export class VeterinariansService {
     try {
       const hashedPassword = await bcrypt.hash(data.password, 10);
 
-      return await this.prisma.veterinarian.create({
+      // Create the user first
+      const user = await this.prisma.user.create({
         data: {
+          ...data,
+          password: hashedPassword,
+          role: UserRole.FARMER,
+        },
+      });
+
+      // Create the veterinarian and link it to the user
+      const veterinarian = await this.prisma.veterinarian.create({
+        data: {
+          userPtrId: user.id,
+        },
+      });
+
+      return await this.prisma.veterinarian.findUnique({
+        where: { userPtrId: veterinarian.userPtrId },
+        include: {
           user: {
-            create: {
-              ...data,
-              password: hashedPassword,
-              role: UserRole.VETERINARIAN,
+            include: {
+              district: {
+                include: {
+                  region: {
+                    select: {
+                      name: true,
+                    },
+                  },
+                },
+              },
             },
           },
-        },
+        }
       });
     } catch (error) {
       if (error.code === 'P2002') {
@@ -110,7 +133,7 @@ export class VeterinariansService {
 
   async findOne(id: number) {
     return await this.prisma.veterinarian.findUniqueOrThrow({
-      where: { id },
+      where: { userPtrId: id },
       include: {
         user: {
           include: {
@@ -130,9 +153,11 @@ export class VeterinariansService {
   }
 
   async update(id: number, data: UpdateVeterinarianDto) {
-    await this.prisma.veterinarian.findUniqueOrThrow({ where: { id } });
+    await this.prisma.veterinarian.findUniqueOrThrow({
+      where: { userPtrId: id },
+    });
     return await this.prisma.veterinarian.update({
-      where: { id },
+      where: { userPtrId: id },
       data: {
         user: {
           update: {
@@ -160,10 +185,10 @@ export class VeterinariansService {
 
   async remove(id: number) {
     const veterinarian = await this.prisma.veterinarian.findUniqueOrThrow({
-      where: { id },
+      where: { userPtrId: id },
     });
     return await this.prisma.user.delete({
-      where: { id: veterinarian.userId },
+      where: { id: veterinarian.userPtrId },
     });
   }
 }

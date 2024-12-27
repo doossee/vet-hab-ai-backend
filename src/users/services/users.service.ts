@@ -13,6 +13,10 @@ export class UsersService {
   async create(data: CreateUserDto) {
     try {
       const hashedPassword = await bcrypt.hash(data.password, 10);
+      
+      if (data.role !== 'ADMIN') {
+        throw new BadRequestException('You cannot create a user with this role');
+      }
 
       return await this.prisma.user.create({
         data: {
