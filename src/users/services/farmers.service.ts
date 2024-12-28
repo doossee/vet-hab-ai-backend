@@ -59,6 +59,11 @@ export class FarmersService {
               },
             },
           },
+          veterinarian: {
+            include: {
+              user: true
+            }
+          }
         },
       });
     } catch (error) {
@@ -134,6 +139,11 @@ export class FarmersService {
           },
         },
       },
+      veterinarian: {
+        include: {
+          user: true
+        }
+      }
     };
 
     return paginate(
@@ -160,6 +170,11 @@ export class FarmersService {
             },
           },
         },
+        veterinarian: {
+          include: {
+            user: true
+          }
+        }
       },
     });
   }
@@ -189,6 +204,11 @@ export class FarmersService {
             },
           },
         },
+        veterinarian: {
+          include: {
+            user: true
+          }
+        }
       },
     });
   }
