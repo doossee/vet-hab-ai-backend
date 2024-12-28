@@ -47,7 +47,7 @@ export class VeterinariansService {
               },
             },
           },
-        }
+        },
       });
     } catch (error) {
       if (error.code === 'P2002') {

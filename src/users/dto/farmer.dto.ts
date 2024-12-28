@@ -115,7 +115,7 @@ export class CreateFarmerDto {
   @IsInt()
   @IsPositive({ message: 'District ID must be a positive integer' })
   @IsNotEmpty()
-  @IsEntityExist('veterinarian', {
+  @IsEntityExist('user', {
     message: 'Veterinarian with given ID does not exist',
   })
   @ApiProperty({

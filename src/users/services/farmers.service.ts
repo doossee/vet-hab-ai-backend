@@ -16,6 +16,11 @@ export class FarmersService {
       const { veterinarianId, password, ...userData } = data;
       const hashedPassword = await bcrypt.hash(password, 10);
 
+      // Make sure that veterinarian with given ID exists
+      const veterinarian = await this.prisma.veterinarian.findUniqueOrThrow({
+        where: { userPtrId: veterinarianId },
+      });
+
       // Create the user first
       const user = await this.prisma.user.create({
         data: {
@@ -29,11 +34,12 @@ export class FarmersService {
       const farmer = await this.prisma.farmer.create({
         data: {
           userPtrId: user.id,
-          veterinarianId,
+          veterinarianId: veterinarian.userPtrId,
         },
       });
 
-      return await this.prisma.veterinarian.findUnique({
+      // Return farmer with populating fields
+      return await this.prisma.farmer.findUnique({
         where: { userPtrId: farmer.userPtrId },
         include: {
           user: {
@@ -49,7 +55,7 @@ export class FarmersService {
               },
             },
           },
-        }
+        },
       });
     } catch (error) {
       if (error.code === 'P2002') {
