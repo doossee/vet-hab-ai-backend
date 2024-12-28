@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'nestjs-prisma';
 import * as bcrypt from 'bcryptjs';
 import { CreateFarmerDto, UpdateFarmerDto } from '../dto';
@@ -17,9 +17,13 @@ export class FarmersService {
       const hashedPassword = await bcrypt.hash(password, 10);
 
       // Make sure that veterinarian with given ID exists
-      const veterinarian = await this.prisma.veterinarian.findUniqueOrThrow({
+      const veterinarian = await this.prisma.veterinarian.findUnique({
         where: { userPtrId: veterinarianId },
       });
+
+      if (!veterinarian) {
+        throw new NotFoundException("Veterinarian with given ID not found");
+      }
 
       // Create the user first
       const user = await this.prisma.user.create({
@@ -38,7 +42,7 @@ export class FarmersService {
         },
       });
 
-      // Return farmer with populating fields
+      // Return farmer with populating necessary fields
       return await this.prisma.farmer.findUnique({
         where: { userPtrId: farmer.userPtrId },
         include: {
