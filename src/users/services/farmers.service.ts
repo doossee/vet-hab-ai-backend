@@ -16,15 +16,6 @@ export class FarmersService {
       const { veterinarianId, password, ...userData } = data;
       const hashedPassword = await bcrypt.hash(password, 10);
 
-      // Make sure that veterinarian with given ID exists
-      const veterinarian = await this.prisma.veterinarian.findUnique({
-        where: { userPtrId: veterinarianId },
-      });
-
-      if (!veterinarian) {
-        throw new NotFoundException("Veterinarian with given ID not found");
-      }
-
       // Create the user first
       const user = await this.prisma.user.create({
         data: {
@@ -38,7 +29,7 @@ export class FarmersService {
       const farmer = await this.prisma.farmer.create({
         data: {
           userPtrId: user.id,
-          veterinarianId: veterinarian.userPtrId,
+          veterinarianId: veterinarianId,
         },
       });
 

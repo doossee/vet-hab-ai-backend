@@ -41,7 +41,7 @@ export class CreateAnimalDto {
   @IsInt()
   @IsPositive()
   @IsNotEmpty()
-  @IsEntityExist('farmer', {
+  @IsEntityExist('farmer', 'userPtrId', {
     message: 'Farmer with given ID does not exist',
   })
   @ApiProperty({
