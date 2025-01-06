@@ -1,41 +1,50 @@
 model GeneralInspection {
   id Int @id @default(autoincrement())
 
-  animalId Int @map("animal_id")
+  animalId Int    @map("animal_id")
   animal   Animal @relation(fields: [animalId], references: [id], onDelete: Cascade)
 
   // Gabitus
 
-  bodyType      BodyType @map("body_type") // jussasi
+  bodyType      BodyType      @map("body_type") // jussasi
   bodyStructure BodyStructure @map("body_structure") // tana tuzilishi
   obesity       ObesityType // semizligi
-  customerType  CustomerType @map("customer_type") // hayvon mijozi gabitus         Gabitus?
+  customerType  CustomerType  @map("customer_type") // hayvon mijozi gabitus         Gabitus?
 
-  colorId Int @map("color_id")
+  leatherCoverId Int          @map("leather_cover_id")
+  leatherCover   LeatherCover @relation(fields: [leatherCoverId], references: [id])
+
+  eyelidId Int    @map("eyelid_id")
+  eyelid   Eyelid @relation(fields: [eyelidId], references: [id])
+
+  colorId Int   @map("color_id")
   color   Color @relation(fields: [colorId], references: [id])
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  inspections Inspection[]
+  inspection Inspection?
 }
 
 model Inspection {
   id Int @id @default(autoincrement())
 
-  animalId Int? @map("animal_id")
+  animalId Int?    @map("animal_id")
   animal   Animal? @relation(fields: [animalId], references: [id], onDelete: Cascade)
 
-  diseaseId Int? @map("disease_id")
+  diseaseId Int?     @map("disease_id")
   disease   Disease? @relation(fields: [diseaseId], references: [id], onDelete: Cascade)
 
-  generalInspectionId Int? @map("general_inspection_id")
+  generalInspectionId Int?               @unique @map("general_inspection_id")
   generalInspection   GeneralInspection? @relation(fields: [generalInspectionId], references: [id], onDelete: Cascade)
 
   temperature     Float? // temperatura
   pulse           Int? // puls
-  respiratoryRate Float? @map("respiratory_rate")// nafas soni
+  respiratoryRate Float? @map("respiratory_rate") // nafas soni
   rumination      Int? // ruminatsiya
+
+  type       InspectionType
+  conclusion String?        @db.Text()
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -44,16 +53,19 @@ model Inspection {
 model Disease {
   id Int @id @default(autoincrement())
 
-  animalId Int @map("animal_id")
+  animalId Int    @map("animal_id")
   animal   Animal @relation(fields: [animalId], references: [id], onDelete: Cascade)
 
-  typeId Int @map("type_id")
+  typeId Int         @map("type_id")
   type   DiseaseType @relation(fields: [typeId], references: [id])
 
   startTime DateTime @map("start_time")
   endTime   DateTime @map("end_time")
 
-  conclusion String @db.Text()
+  conclusion String? @db.Text()
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   inspections Inspection[]
   urineTests  UrineTest[]
@@ -64,7 +76,7 @@ model GeneralBloodTest {
   id Int @id @default(autoincrement())
 
   date       DateTime // sana 
-  conclusion String? // xulosa
+  conclusion String?   @db.Text() // xulosa
 
   erythrocyteCount Float? @map("erythrocyte_count") // eritrosit soni
   leukocyteCount   Float? @map("leukocyte_count") // leykosit soni
@@ -72,11 +84,11 @@ model GeneralBloodTest {
 
   coe                  Float? // COE
   waterPercentage      Float? @map("water_percentage") // suv foizda
-  dryResiduePercentage Float? @map("dry_residue_percentage")// quruq qoldiq
+  dryResiduePercentage Float? @map("dry_residue_percentage") // quruq qoldiq
   hemoglobin           Float? // gemoglobin
   glutathione          Float? // glutation
 
-  animalId Int @map("animal_id")
+  animalId Int    @map("animal_id")
   animal   Animal @relation(fields: [animalId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now()) @map("created_at")
@@ -107,7 +119,7 @@ model BloodSerumTest {
   urea              Float? // siydik
   ureaAcid          Float? @map("urea_acid") // siydik kislotasi
 
-  animalId Int @map("animal_id")
+  animalId Int    @map("animal_id")
   animal   Animal @relation(fields: [animalId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now()) @map("created_at")
@@ -117,13 +129,13 @@ model BloodSerumTest {
 model UrineTest {
   id Int @id @default(autoincrement())
 
-  animalId Int? @map("animal_id")
+  animalId Int?    @map("animal_id")
   animal   Animal? @relation(fields: [animalId], references: [id], onDelete: Cascade)
 
-  diseaseId Int? @map("disease_id")
+  diseaseId Int?     @map("disease_id")
   disease   Disease? @relation(fields: [diseaseId], references: [id], onDelete: Cascade)
 
-  colorId Int @map("color_id")
+  colorId Int        @map("color_id")
   color   UrineColor @relation(fields: [colorId], references: [id])
 
   clarity     UrineClarity
@@ -137,13 +149,13 @@ model UrineTest {
 model DungTest {
   id Int @id @default(autoincrement())
 
-  animalId Int? @map("animal_id")
+  animalId Int?    @map("animal_id")
   animal   Animal? @relation(fields: [animalId], references: [id], onDelete: Cascade)
 
-  diseaseId Int? @map("disease_id")
+  diseaseId Int?     @map("disease_id")
   disease   Disease? @relation(fields: [diseaseId], references: [id], onDelete: Cascade)
 
-  colorId Int @map("color_id")
+  colorId Int       @map("color_id")
   color   DungColor @relation(fields: [colorId], references: [id])
 
   clarity     DungClarity

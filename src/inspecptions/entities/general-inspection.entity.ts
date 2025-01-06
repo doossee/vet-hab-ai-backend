@@ -39,7 +39,13 @@ export class GeneralInspectionEntity implements GeneralInspection {
   @ApiProperty({ description: 'Customer type', enum: $Enums.CustomerType })
   customerType: $Enums.CustomerType;
 
-  @ApiProperty({ description: 'Color ID of the animal', example: 5 })
+  @ApiProperty({ description: 'Leather cover ID of the animal', example: 5 })
+  leatherCoverId: number;
+
+  @ApiProperty({ description: 'Eyelid ID of the animal', example: 8 })
+  eyelidId: number;
+
+  @ApiProperty({ description: 'Color ID of the animal', example: 3 })
   colorId: number;
 
   @ApiProperty({

@@ -1,14 +1,14 @@
 model Region {
   id Int @id @default(autoincrement())
 
-  name      String     @unique
+  name      String     @unique @db.VarChar(40)
   districts District[]
 }
 
 model District {
   id Int @id @default(autoincrement())
 
-  name     String
+  name     String @db.VarChar(40)
   regionId Int    @map("region_id")
   region   Region @relation(fields: [regionId], references: [id], onDelete: Cascade)
 
@@ -19,8 +19,8 @@ model District {
 model VetStation {
   id Int @id @default(autoincrement())
 
-  name    String
-  address String
+  name    String @db.VarChar(40)
+  address String @db.VarChar(80)
 
   districtId Int      @map("district_id")
   district   District @relation(fields: [districtId], references: [id])
@@ -32,15 +32,15 @@ model VetStation {
 model AnimalType {
   id Int @id @default(autoincrement())
 
-  name    String
+  name    String   @db.VarChar(40)
   animals Animal[]
 }
 
 model Color {
   id Int @id @default(autoincrement())
 
-  name String
-  hex  String?
+  name String  @db.VarChar(40)
+  hex  String? @db.VarChar(8)
 
   animals            Animal[]
   generalInspections GeneralInspection[]
@@ -49,23 +49,39 @@ model Color {
 model UrineColor {
   id Int @id @default(autoincrement())
 
-  name String
+  name String @db.VarChar(40)
 
-  urineTests UrineTest[]
+  urdineTests UrineTest[]
 }
 
 model DungColor {
   id Int @id @default(autoincrement())
 
-  name String
+  name String @db.VarChar(40)
 
   dungTests DungTest[]
+}
+
+model LeatherCover {
+  id Int @id @default(autoincrement())
+
+  name String @db.VarChar(40)
+
+  generalInspections GeneralInspection[]
+}
+
+model Eyelid {
+  id Int @id @default(autoincrement())
+
+  name String @db.VarChar(40)
+
+  generalInspections GeneralInspection[]
 }
 
 model VaccineType {
   id Int @id @default(autoincrement())
 
-  name String
+  name String @db.VarChar(40)
 
   vaccines Vaccine[]
 }
@@ -73,7 +89,7 @@ model VaccineType {
 model DiseaseType {
   id Int @id @default(autoincrement())
 
-  name String
+  name String @db.VarChar(40)
 
   diseases Disease[]
 }

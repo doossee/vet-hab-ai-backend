@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Inspection } from '@prisma/client';
+import { $Enums, Inspection } from '@prisma/client';
 
 export class InspectionEntity implements Inspection {
   constructor({ ...data }: Partial<InspectionEntity>) {
@@ -47,6 +47,19 @@ export class InspectionEntity implements Inspection {
 
   @ApiProperty({ description: 'Rumination count of the animal', example: 5 })
   rumination: number;
+
+  @ApiProperty({
+    description: 'Body type of the animal',
+    enum: $Enums.InspectionType,
+  })
+  type: $Enums.InspectionType;
+
+  @ApiProperty({
+    description: 'Conclusion of the blood test results (optional)',
+    example: 'Normal parameters',
+    required: false,
+  })
+  conclusion: string | null;
 
   @ApiProperty({
     description: 'Creation timestamp',

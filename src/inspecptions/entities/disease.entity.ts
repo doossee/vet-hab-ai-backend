@@ -39,4 +39,16 @@ export class DiseaseEntity implements Disease {
     example: 'Recovered fully',
   })
   conclusion: string;
+
+  @ApiProperty({
+    description: 'The date and time when the disease was created.',
+    example: '2024-12-14T09:15:30Z',
+  })
+  createdAt: Date;
+
+  @ApiProperty({
+    description: 'The date and time when the disease was last updated.',
+    example: '2024-12-14T10:00:00Z',
+  })
+  updatedAt: Date
 }

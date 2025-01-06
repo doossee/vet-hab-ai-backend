@@ -1,10 +1,13 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
+import { InspectionType } from '@prisma/client';
 import {
+    IsEnum,
   IsInt,
   IsNotEmpty,
   IsNumber,
   IsOptional,
   IsPositive,
+  IsString,
 } from 'class-validator';
 import { IsEntityExist } from 'src/common/validators';
 
@@ -81,6 +84,23 @@ export class CreateInspectionDto {
     example: 60,
   })
   readonly rumination: number;
+
+  @IsEnum(InspectionType)
+  @IsNotEmpty()
+  @ApiProperty({
+    description: 'The type of the inspection.',
+    enum: InspectionType,
+    example: InspectionType.GENERAL,
+  })
+  readonly type: InspectionType;
+
+  @IsString()
+  @IsOptional()
+  @ApiProperty({
+    description: 'A summary or conclusion based on the test results.',
+    example: 'No abnormalities detected.',
+  })
+  readonly conclusion?: string;
 }
 
 export class UpdateInspectionDto extends PartialType(CreateInspectionDto) {}

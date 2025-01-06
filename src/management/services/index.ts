@@ -7,3 +7,5 @@ export * from './urine-colors.service';
 export * from './dung-colors.service';
 export * from './vaccine-types.service';
 export * from './disease-types.service';
+export * from './leather-covers.service';
+export * from './eyelids.service';

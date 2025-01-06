@@ -9,3 +9,5 @@ export class UrineColorQueryParamsDto extends BaseQueryParamsDto {}
 export class DungColorQueryParamsDto extends BaseQueryParamsDto {}
 export class VaccineTypeQueryParamsDto extends BaseQueryParamsDto {}
 export class DiseaseTypeQueryParamsDto extends BaseQueryParamsDto {}
+export class LeatherCoverQueryParamsDto extends BaseQueryParamsDto {}
+export class EyelidQueryParamsDto extends BaseQueryParamsDto {}

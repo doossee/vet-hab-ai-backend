@@ -2,15 +2,34 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'nestjs-prisma';
 import { CreateGeneralInspectionDto, UpdateGeneralInspectionDto } from '../dto';
 import { PaginateFunction, paginator } from 'src/common/pagination';
+import { InspectionType } from '@prisma/client';
 
 const paginate: PaginateFunction = paginator({ perPage: 30 });
 
 @Injectable()
 export class GeneralInspectionsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   async create(data: CreateGeneralInspectionDto) {
-    return await this.prisma.generalInspection.create({ data });
+    const { temperature, pulse, respiratoryRate, rumination, conclusion } = data;
+    const genInspection = await this.prisma.generalInspection.create({ data });
+
+    await this.prisma.inspection.create({
+      data: {
+        generalInspectionId: genInspection.id,
+        temperature,
+        pulse,
+        respiratoryRate,
+        rumination,
+        type: InspectionType.GENERAL,
+        conclusion,
+      }
+    });
+
+    return this.prisma.generalInspection.findUnique({
+      where: { id: genInspection.id },
+      include: { inspection: true }
+    });
   }
 
   async findAll() {

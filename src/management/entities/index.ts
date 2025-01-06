@@ -8,3 +8,5 @@ export * from './dung-color.entity';
 export * from './vaccine-type.entity';
 export * from './disease-type.entity';
 export * from './paginated-response.entity';
+export * from './leather-cover.entity';
+export * from './eyelid.entity';

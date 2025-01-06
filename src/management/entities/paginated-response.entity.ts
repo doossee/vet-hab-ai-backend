@@ -9,6 +9,8 @@ import { UrineColorEntity } from './urine-color.entity';
 import { DungColorEntity } from './dung-color.entity';
 import { VaccineTypeEntity } from './vaccine-type.entity';
 import { DiseaseTypeEntity } from './disease-type.entity';
+import { LeatherCoverEntity } from './leather-cover.entity';
+import { EyelidEntity } from './eyelid.entity';
 
 export class PaginatedRegionsEntity {
   @ApiProperty({ type: [RegionEntity] })
@@ -81,3 +83,23 @@ export class PaginatedDiseaseTypesEntity {
   @ApiProperty({ type: MetaDateEntity })
   meta: MetaDateEntity;
 }
+
+export class PaginatedLeatherCoversEntity {
+@ApiProperty({ type: [LeatherCoverEntity] })
+data: DiseaseTypeEntity[];
+
+@ApiProperty({ type: MetaDateEntity })
+meta: MetaDateEntity;
+}
+
+export class PaginatedEyelidsEntity {
+@ApiProperty({ type: [EyelidEntity] })
+data: DiseaseTypeEntity[];
+
+@ApiProperty({ type: MetaDateEntity })
+meta: MetaDateEntity;
+}
+
+
+
+
