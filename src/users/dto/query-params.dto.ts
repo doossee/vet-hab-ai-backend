@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { $Enums, Gender, UserRole } from '@prisma/client';
+import { Gender, UserRole } from '@prisma/client';
 import { Type } from 'class-transformer';
 import { IsDate, IsEnum, IsInt, IsOptional, IsPositive } from 'class-validator';
 import { BaseQueryParamsDto, SortOrder } from 'src/common/dto';

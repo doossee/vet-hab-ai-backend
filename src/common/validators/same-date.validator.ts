@@ -26,7 +26,7 @@ export function IsSameDate(validationOptions?: ValidationOptions) {
 
           return start === end;
         },
-        defaultMessage(args: ValidationArguments) {
+        defaultMessage() {
           return `Start date and end date must have the same date part (ignoring time).`;
         },
       },
