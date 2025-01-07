@@ -76,7 +76,7 @@ model GeneralBloodTest {
   id Int @id @default(autoincrement())
 
   date       DateTime // sana 
-  conclusion String?   @db.Text() // xulosa
+  conclusion String?  @db.Text() // xulosa
 
   erythrocyteCount Float? @map("erythrocyte_count") // eritrosit soni
   leukocyteCount   Float? @map("leukocyte_count") // leykosit soni

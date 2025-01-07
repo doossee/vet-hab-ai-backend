@@ -43,8 +43,23 @@ export class GeneralInspectionsService {
   }
 
   async update(id: number, data: UpdateGeneralInspectionDto) {
-    await this.prisma.generalInspection.findUniqueOrThrow({ where: { id } });
-    return await this.prisma.generalInspection.update({ where: { id }, data });
+    const genInspection = await this.prisma.generalInspection.findUniqueOrThrow({ where: { id } });
+    const { temperature, pulse, respiratoryRate, rumination, conclusion } = data;
+
+    await this.prisma.inspection.update({
+      where: { generalInspectionId: genInspection.id },
+      data: {
+        temperature,
+        pulse,
+        respiratoryRate,
+        rumination,
+        conclusion
+      }
+    })
+    return await this.prisma.generalInspection.update({
+      where: { id }, data, 
+      include: { inspection: true }
+    });
   }
 
   async remove(id: number) {
