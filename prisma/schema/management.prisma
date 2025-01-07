@@ -51,7 +51,7 @@ model UrineColor {
 
   name String @db.VarChar(40)
 
-  urdineTests UrineTest[]
+  urineTests UrineTest[]
 }
 
 model DungColor {
