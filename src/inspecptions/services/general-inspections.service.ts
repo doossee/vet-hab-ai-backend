@@ -11,8 +11,15 @@ export class GeneralInspectionsService {
   constructor(private readonly prisma: PrismaService) { }
 
   async create(data: CreateGeneralInspectionDto) {
-    const { temperature, pulse, respiratoryRate, rumination, conclusion } = data;
-    const genInspection = await this.prisma.generalInspection.create({ data });
+    const {
+      temperature,
+      pulse,
+      respiratoryRate,
+      rumination,
+      conclusion,
+      ...genInsData
+    } = data;
+    const genInspection = await this.prisma.generalInspection.create({ data: genInsData });
 
     await this.prisma.inspection.create({
       data: {
@@ -43,8 +50,15 @@ export class GeneralInspectionsService {
   }
 
   async update(id: number, data: UpdateGeneralInspectionDto) {
+    const { 
+      temperature, 
+      pulse, 
+      respiratoryRate, 
+      rumination, 
+      conclusion, 
+      ...genInsData 
+    } = data;
     const genInspection = await this.prisma.generalInspection.findUniqueOrThrow({ where: { id } });
-    const { temperature, pulse, respiratoryRate, rumination, conclusion } = data;
 
     await this.prisma.inspection.update({
       where: { generalInspectionId: genInspection.id },
@@ -57,7 +71,7 @@ export class GeneralInspectionsService {
       }
     })
     return await this.prisma.generalInspection.update({
-      where: { id }, data, 
+      where: { id }, data: genInsData,
       include: { inspection: true }
     });
   }
