@@ -5,6 +5,8 @@ import {
   DiseaseTypesService,
   DistrictsService,
   DungColorsService,
+  EyelidsService,
+  LeatherCoversService,
   RegionsService,
   UrineColorsService,
   VaccineTypesService,
@@ -21,6 +23,8 @@ import {
   VaccineTypesController,
   VetStationsController,
 } from './controllers';
+import { EyelidsController } from './controllers/eyelids.controller';
+import { LeatherCoversController } from './controllers/leather-covers.controller';
 
 @Module({
   controllers: [
@@ -31,6 +35,8 @@ import {
     ColorsController,
     UrineColorsController,
     DungColorsController,
+    LeatherCoversController,
+    EyelidsController,
     VaccineTypesController,
     DiseaseTypesController,
   ],
@@ -42,6 +48,8 @@ import {
     ColorsService,
     UrineColorsService,
     DungColorsService,
+    LeatherCoversService,
+    EyelidsService,
     VaccineTypesService,
     DiseaseTypesService,
   ],
