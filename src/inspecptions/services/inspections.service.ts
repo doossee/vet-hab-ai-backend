@@ -10,7 +10,9 @@ export class InspectionsService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(data: CreateInspectionDto) {
-    return await this.prisma.inspection.create({ data });
+    return await this.prisma.inspection.create({ 
+      data
+    });
   }
 
   async findAll() {

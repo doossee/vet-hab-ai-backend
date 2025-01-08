@@ -7,29 +7,54 @@ const paginate: PaginateFunction = paginator({ perPage: 30 });
 
 @Injectable()
 export class GeneralBloodTestsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   async create(data: CreateGeneralBloodTestDto) {
-    return await this.prisma.generalBloodTest.create({ data });
+    return await this.prisma.generalBloodTest.create({
+      data,
+      include: {
+        animal: true,
+      }
+    });
   }
 
   async findAll() {
-    return await paginate(this.prisma.generalBloodTest);
+    const include: any = {
+      animal: true,
+    }
+    return await paginate(
+      this.prisma.generalBloodTest,
+      include
+    );
   }
 
   async findOne(id: number) {
     return await this.prisma.generalBloodTest.findUniqueOrThrow({
       where: { id },
+      include: {
+        animal: true,
+      }
     });
   }
 
   async update(id: number, data: UpdateGeneralBloodTestDto) {
     await this.prisma.generalBloodTest.findUniqueOrThrow({ where: { id } });
-    return await this.prisma.generalBloodTest.update({ where: { id }, data });
+    return await this.prisma.generalBloodTest.update({ 
+      where: { id },
+      data,
+      include: {
+        animal: true,
+      }
+    });
   }
 
   async remove(id: number) {
     await this.prisma.generalBloodTest.findUniqueOrThrow({ where: { id } });
-    return await this.prisma.generalBloodTest.delete({ where: { id } });
+    return await this.prisma.generalBloodTest.delete({ 
+      where: { id },
+      include: {
+        animal: true,
+      }
+    });
   }
 }

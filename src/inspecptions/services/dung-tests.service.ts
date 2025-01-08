@@ -10,24 +10,61 @@ export class DungTestsService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(data: CreateDungTestDto) {
-    return await this.prisma.dungTest.create({ data });
+    return await this.prisma.dungTest.create({
+      data,
+      include: {
+        animal: true,
+        disease: true,
+        color: true
+      }
+    });
   }
 
   async findAll() {
-    return await paginate(this.prisma.dungTest);
+    const include: any = {
+      animal: true,
+      disease: true,
+      color: true
+    }
+    return await paginate(
+      this.prisma.dungTest,
+      include
+    );
   }
 
   async findOne(id: number) {
-    return await this.prisma.dungTest.findUniqueOrThrow({ where: { id } });
+    return await this.prisma.dungTest.findUniqueOrThrow({ 
+      where: { id },
+      include: {
+        animal: true,
+        disease: true,
+        color: true
+      }
+    });
   }
 
   async update(id: number, data: UpdateDungTestDto) {
     await this.prisma.dungTest.findUniqueOrThrow({ where: { id } });
-    return await this.prisma.dungTest.update({ where: { id }, data });
+    return await this.prisma.dungTest.update({ 
+      where: { id },
+      data,
+      include: {
+        animal: true,
+        disease: true,
+        color: true
+      }
+    });
   }
 
   async remove(id: number) {
     await this.prisma.dungTest.findUniqueOrThrow({ where: { id } });
-    return await this.prisma.dungTest.delete({ where: { id } });
+    return await this.prisma.dungTest.delete({ 
+      where: { id },
+      include: {
+        animal: true,
+        disease: true,
+        color: true
+      }
+    });
   }
 }

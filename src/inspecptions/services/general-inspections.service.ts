@@ -46,6 +46,7 @@ export class GeneralInspectionsService {
   async findOne(id: number) {
     return await this.prisma.generalInspection.findUniqueOrThrow({
       where: { id },
+      include: { inspection: true }
     });
   }
 
@@ -78,6 +79,9 @@ export class GeneralInspectionsService {
 
   async remove(id: number) {
     await this.prisma.generalInspection.findUniqueOrThrow({ where: { id } });
-    return await this.prisma.generalInspection.delete({ where: { id } });
+    return await this.prisma.generalInspection.delete({
+      where: { id },
+      include: { inspection: true }
+    });
   }
 }
