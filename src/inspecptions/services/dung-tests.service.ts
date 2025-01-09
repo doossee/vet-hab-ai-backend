@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'nestjs-prisma';
-import { CreateDungTestDto, UpdateDungTestDto } from '../dto';
+import { CreateDungTestDto, DungTestQueryParamsDto, UpdateDungTestDto } from '../dto';
 import { PaginateFunction, paginator } from 'src/common/pagination';
+import { Prisma } from '@prisma/client';
 
 const paginate: PaginateFunction = paginator({ perPage: 30 });
 
@@ -20,15 +21,31 @@ export class DungTestsService {
     });
   }
 
-  async findAll() {
+  async findAll(params: DungTestQueryParamsDto) {
+    const {
+      page,
+      perPage,
+      byId,
+    } = params;
+
+    const where: Prisma.DungTestWhereInput = {
+      
+    };
+
+    const orderBy: Prisma.DungTestOrderByWithRelationInput = {
+      ...(byId && { id: byId }),
+    };
+
     const include: any = {
       animal: true,
       disease: true,
       color: true
     }
+
     return await paginate(
       this.prisma.dungTest,
-      include
+      { where, orderBy, include },
+      { page, perPage }
     );
   }
 

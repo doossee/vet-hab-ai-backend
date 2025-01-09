@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'nestjs-prisma';
-import { CreateGeneralBloodTestDto, UpdateGeneralBloodTestDto } from '../dto';
+import { CreateGeneralBloodTestDto, GeneralBloodTestQueryParamsDto, UpdateGeneralBloodTestDto } from '../dto';
 import { PaginateFunction, paginator } from 'src/common/pagination';
+import { Prisma } from '@prisma/client';
 
 const paginate: PaginateFunction = paginator({ perPage: 30 });
 
@@ -18,13 +19,29 @@ export class GeneralBloodTestsService {
     });
   }
 
-  async findAll() {
+  async findAll(params: GeneralBloodTestQueryParamsDto) {
+    const {
+      page,
+      perPage,
+      byId,
+    } = params;
+
+    const where: Prisma.GeneralBloodTestWhereInput = {
+      
+    };
+
+    const orderBy: Prisma.GeneralBloodTestOrderByWithRelationInput = {
+      ...(byId && { id: byId }),
+    };
+
     const include: any = {
       animal: true,
-    }
+    };
+
     return await paginate(
       this.prisma.generalBloodTest,
-      include
+      { where, orderBy, include },
+      { page, perPage }
     );
   }
 

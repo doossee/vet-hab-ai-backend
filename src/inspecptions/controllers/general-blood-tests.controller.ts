@@ -8,9 +8,10 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { GeneralBloodTestsService } from '../services';
-import { CreateGeneralBloodTestDto, UpdateGeneralBloodTestDto } from '../dto';
+import { CreateGeneralBloodTestDto, GeneralBloodTestQueryParamsDto, UpdateGeneralBloodTestDto } from '../dto';
 import {
   GeneralBloodTestEntity,
   PaginatedGeneralBloodTestEntity,
@@ -34,8 +35,8 @@ export class GeneralBloodTestController {
 
   @ApiOkResponse({ type: PaginatedGeneralBloodTestEntity })
   @Get()
-  async findAll() {
-    const { data, meta } = await this.generalBloodTestsService.findAll();
+  async findAll(@Query() params: GeneralBloodTestQueryParamsDto) {
+    const { data, meta } = await this.generalBloodTestsService.findAll(params);
     const transformedData = data.map(
       (generalBloodTest) => new GeneralBloodTestEntity(generalBloodTest),
     );

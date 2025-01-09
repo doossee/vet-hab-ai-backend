@@ -5,3 +5,4 @@ export * from './general-blood-test.dto';
 export * from './blood-serum-test.dto';
 export * from './urine-test.dto';
 export * from './dung-test.dto';
+export * from './query-params.dto';

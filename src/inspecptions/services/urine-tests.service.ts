@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'nestjs-prisma';
-import { CreateUrineTestDto, UpdateUrineTestDto } from '../dto';
+import { CreateUrineTestDto, UpdateUrineTestDto, UrineTestQueryParamsDto } from '../dto';
 import { PaginateFunction, paginator } from 'src/common/pagination';
+import { Prisma } from '@prisma/client';
 
 const paginate: PaginateFunction = paginator({ perPage: 30 });
 
@@ -20,7 +21,21 @@ export class UrineTestsService {
     
   }
 
-  async findAll() {
+  async findAll(params: UrineTestQueryParamsDto) {
+    const {
+      page,
+      perPage,
+      byId,
+    } = params;
+
+    const where: Prisma.GeneralInspectionWhereInput = {
+      
+    };
+
+    const orderBy: Prisma.GeneralInspectionOrderByWithRelationInput = {
+      ...(byId && { id: byId }),
+    };
+
     const include: any = {
       animal: true,
       color: true,
@@ -28,7 +43,8 @@ export class UrineTestsService {
     }
     return await paginate(
       this.prisma.urineTest,
-      include
+      { where, orderBy, include },
+      { page, perPage }
     );
   }
 

@@ -7,11 +7,12 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { DiseasesService } from '../services';
 import { DiseaseEntity, PaginatedDiseaseEntity } from '../entities';
-import { CreateDiseaseDto, UpdateDiseaseDto } from '../dto';
+import { CreateDiseaseDto, DiseaseQueryParamsDto, UpdateDiseaseDto } from '../dto';
 
 @ApiTags('diseases')
 @Controller('diseases')
@@ -26,8 +27,8 @@ export class DiseasesController {
 
   @ApiOkResponse({ type: PaginatedDiseaseEntity })
   @Get()
-  async findAll() {
-    const { data, meta } = await this.diseasesService.findAll();
+  async findAll(@Query() params: DiseaseQueryParamsDto) {
+    const { data, meta } = await this.diseasesService.findAll(params);
     const transformedData = data.map((disease) => new DiseaseEntity(disease));
     return { data: transformedData, meta };
   }

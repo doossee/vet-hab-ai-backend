@@ -8,9 +8,10 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { GeneralInspectionsService } from '../services';
-import { CreateGeneralInspectionDto, UpdateGeneralInspectionDto } from '../dto';
+import { CreateGeneralInspectionDto, GeneralInspectionQueryParamsDto, UpdateGeneralInspectionDto } from '../dto';
 import {
   GeneralInspectionEntity,
   PaginatedGeneralInspectionEntity,
@@ -34,8 +35,8 @@ export class GeneralInspectionController {
 
   @ApiOkResponse({ type: PaginatedGeneralInspectionEntity })
   @Get()
-  async findAll() {
-    const { data, meta } = await this.generalInspectionsService.findAll();
+  async findAll(@Query() params: GeneralInspectionQueryParamsDto) {
+    const { data, meta } = await this.generalInspectionsService.findAll(params);
     const transformedData = data.map(
       (generalInspection) => new GeneralInspectionEntity(generalInspection),
     );

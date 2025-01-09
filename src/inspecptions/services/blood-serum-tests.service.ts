@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'nestjs-prisma';
-import { CreateBloodSerumTestDto, UpdateBloodSerumTestDto } from '../dto';
+import { BloodSerumTestQueryParamsDto, CreateBloodSerumTestDto, UpdateBloodSerumTestDto } from '../dto';
 import { PaginateFunction, paginator } from 'src/common/pagination';
+import { Prisma } from '@prisma/client';
 
 const paginate: PaginateFunction = paginator({ perPage: 30 });
 
@@ -18,13 +19,28 @@ export class BloodSerumTestsService {
     });
   }
 
-  async findAll() {
+  async findAll(params: BloodSerumTestQueryParamsDto) {
+    const {
+      page,
+      perPage,
+      byId,
+    } = params;
+
+    const where: Prisma.BloodSerumTestWhereInput = {
+      
+    };
+
+    const orderBy: Prisma.BloodSerumTestOrderByWithRelationInput = {
+      ...(byId && { id: byId }),
+    };
+
     const include: any = {
       animal: true,
     }
     return await paginate(
       this.prisma.bloodSerumTest,
-      include
+      { where, orderBy, include },
+      { page, perPage },
     );
   }
 

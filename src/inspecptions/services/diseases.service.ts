@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'nestjs-prisma';
-import { CreateDiseaseDto, UpdateDiseaseDto } from '../dto';
+import { CreateDiseaseDto, DiseaseQueryParamsDto, UpdateDiseaseDto } from '../dto';
 import { PaginateFunction, paginator } from 'src/common/pagination';
+import { Prisma } from '@prisma/client';
 
 const paginate: PaginateFunction = paginator({ perPage: 30 });
 
@@ -19,7 +20,21 @@ export class DiseasesService {
     });
   }
 
-  async findAll() {
+  async findAll(params: DiseaseQueryParamsDto) {
+    const {
+      page,
+      perPage,
+      byId,
+    } = params;
+
+    const where: Prisma.DiseaseWhereInput = {
+      
+    };
+
+    const orderBy: Prisma.DiseaseOrderByWithRelationInput = {
+      ...(byId && { id: byId }),
+    };
+
     const include: any = {
       animal: true,
       type: true,
@@ -27,7 +42,8 @@ export class DiseasesService {
 
     return await paginate(
       this.prisma.disease,
-      include
+      { where, orderBy, include },
+      { page, perPage }
     );
   }
 

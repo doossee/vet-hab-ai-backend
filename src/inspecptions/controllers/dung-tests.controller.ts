@@ -7,11 +7,12 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { DungTestsService } from '../services';
 import { DungTestEntity, PaginatedDungTestEntity } from '../entities';
-import { CreateDungTestDto, UpdateDungTestDto } from '../dto';
+import { CreateDungTestDto, DungTestQueryParamsDto, UpdateDungTestDto } from '../dto';
 
 @ApiTags('dung-tests')
 @Controller('dung-tests')
@@ -26,8 +27,8 @@ export class DungTestsController {
 
   @ApiOkResponse({ type: PaginatedDungTestEntity })
   @Get()
-  async findAll() {
-    const { data, meta } = await this.dungTestsService.findAll();
+  async findAll(@Query() params: DungTestQueryParamsDto) {
+    const { data, meta } = await this.dungTestsService.findAll(params);
     const transformedData = data.map(
       (dungTest) => new DungTestEntity(dungTest),
     );

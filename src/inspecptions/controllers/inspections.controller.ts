@@ -7,11 +7,12 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { InspectionsService } from '../services';
 import { InspectionEntity, PaginatedInspectionEntity } from '../entities';
-import { CreateInspectionDto, UpdateInspectionDto } from '../dto';
+import { CreateInspectionDto, InspectionQueryParamsDto, UpdateInspectionDto } from '../dto';
 
 @ApiTags('inspections')
 @Controller('inspections')
@@ -26,8 +27,8 @@ export class InspectionsController {
 
   @ApiOkResponse({ type: PaginatedInspectionEntity })
   @Get()
-  async findAll() {
-    const { data, meta } = await this.inspectionsService.findAll();
+  async findAll(@Query() params: InspectionQueryParamsDto) {
+    const { data, meta } = await this.inspectionsService.findAll(params);
     const transformedData = data.map(
       (inspection) => new InspectionEntity(inspection),
     );

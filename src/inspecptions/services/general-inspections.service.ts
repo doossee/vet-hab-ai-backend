@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'nestjs-prisma';
-import { CreateGeneralInspectionDto, UpdateGeneralInspectionDto } from '../dto';
+import { CreateGeneralInspectionDto, GeneralInspectionQueryParamsDto, UpdateGeneralInspectionDto } from '../dto';
 import { PaginateFunction, paginator } from 'src/common/pagination';
-import { InspectionType } from '@prisma/client';
+import { InspectionType, Prisma } from '@prisma/client';
 
 const paginate: PaginateFunction = paginator({ perPage: 30 });
 
@@ -35,18 +35,56 @@ export class GeneralInspectionsService {
 
     return this.prisma.generalInspection.findUnique({
       where: { id: genInspection.id },
-      include: { inspection: true }
+      include: {
+        animal: true,
+        leatherCover: true,
+        eyelid: true,
+        color: true,
+        inspection: true, 
+      }
     });
   }
 
-  async findAll() {
-    return await paginate(this.prisma.generalInspection);
+  async findAll(params: GeneralInspectionQueryParamsDto) {
+    const {
+      page,
+      perPage,
+      byId,
+    } = params;
+
+    const where: Prisma.GeneralInspectionWhereInput = {
+      
+    };
+
+    const orderBy: Prisma.GeneralInspectionOrderByWithRelationInput = {
+      ...(byId && { id: byId }),
+    };
+
+    const include: any = {
+      animal: true,
+      leatherCover: true,
+      eyelid: true,
+      color: true,
+      inspection: true,     
+    };
+
+    return await paginate(
+      this.prisma.generalInspection,
+      { where, orderBy, include },
+      { page, perPage }
+    );
   }
 
   async findOne(id: number) {
     return await this.prisma.generalInspection.findUniqueOrThrow({
       where: { id },
-      include: { inspection: true }
+      include: { 
+        animal: true,
+        leatherCover: true,
+        eyelid: true,
+        color: true,
+        inspection: true,
+      }
     });
   }
 
@@ -72,8 +110,15 @@ export class GeneralInspectionsService {
       }
     })
     return await this.prisma.generalInspection.update({
-      where: { id }, data: genInsData,
-      include: { inspection: true }
+      where: { id }, 
+      data: genInsData,
+      include: {
+        animal: true,
+        leatherCover: true,
+        eyelid: true,
+        color: true,
+        inspection: true,
+      }
     });
   }
 
@@ -81,7 +126,13 @@ export class GeneralInspectionsService {
     await this.prisma.generalInspection.findUniqueOrThrow({ where: { id } });
     return await this.prisma.generalInspection.delete({
       where: { id },
-      include: { inspection: true }
+      include: {
+        animal: true,
+        leatherCover: true,
+        eyelid: true,
+        color: true,
+        inspection: true, 
+      }
     });
   }
 }

@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { BloodSerumTestsService } from '../services';
@@ -15,6 +16,7 @@ import {
   PaginatedBloodSerumTestEntity,
 } from '../entities';
 import { CreateBloodSerumTestDto, UpdateBloodSerumTestDto } from '../dto';
+import { BloodSerumTestQueryParamsDto } from '../dto/query-params.dto';
 
 @ApiTags('blood-serum-tests')
 @Controller('blood-serum-tests')
@@ -33,8 +35,8 @@ export class BloodSerumTestsController {
 
   @ApiOkResponse({ type: PaginatedBloodSerumTestEntity })
   @Get()
-  async findAll() {
-    const { data, meta } = await this.bloodSerumTestsService.findAll();
+  async findAll(@Query() params: BloodSerumTestQueryParamsDto) {
+    const { data, meta } = await this.bloodSerumTestsService.findAll(params);
     const transformedData = data.map(
       (bloodSerumTest) => new BloodSerumTestEntity(bloodSerumTest),
     );

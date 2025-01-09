@@ -7,11 +7,12 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { UrineTestsService } from '../services';
 import { UrineTestEntity, PaginatedUrineTestEntity } from '../entities';
-import { CreateUrineTestDto, UpdateUrineTestDto } from '../dto';
+import { CreateUrineTestDto, UpdateUrineTestDto, UrineTestQueryParamsDto } from '../dto';
 
 @ApiTags('urine-tests')
 @Controller('urine-tests')
@@ -26,8 +27,8 @@ export class UrineTestsController {
 
   @ApiOkResponse({ type: PaginatedUrineTestEntity })
   @Get()
-  async findAll() {
-    const { data, meta } = await this.urineTestsService.findAll();
+  async findAll(@Query() params: UrineTestQueryParamsDto) {
+    const { data, meta } = await this.urineTestsService.findAll(params);
     const transformedData = data.map(
       (urineTest) => new UrineTestEntity(urineTest),
     );
