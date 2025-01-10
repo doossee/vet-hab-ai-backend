@@ -11,7 +11,22 @@ export class AnimalsService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(data: CreateAnimalDto) {
-    return await this.prisma.animal.create({ data });
+    return await this.prisma.animal.create({ 
+      data,
+      include: {
+        type: {
+          select: {
+            name: true,
+          },
+        },
+        color: {
+          select: {
+            name: true,
+            hex: true,
+          },
+        },
+      },
+    });
   }
 
   async findAll(params: AnimalQueryParamsDto) {
@@ -133,6 +148,21 @@ export class AnimalsService {
 
   async remove(id: number) {
     await this.prisma.animal.findUniqueOrThrow({ where: { id } });
-    return await this.prisma.animal.delete({ where: { id } });
+    return await this.prisma.animal.delete({ 
+      where: { id },
+      include: {
+        type: {
+          select: {
+            name: true,
+          },
+        },
+        color: {
+          select: {
+            name: true,
+            hex: true,
+          },
+        },
+      },
+    });
   }
 }
