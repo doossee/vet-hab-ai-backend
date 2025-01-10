@@ -12,10 +12,20 @@ const paginate: PaginateFunction = paginator({ perPage: 10 });
 
 @Injectable()
 export class VaccinesService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   async create(data: CreateVaccineDto) {
-    return await this.prisma.vaccine.create({ data });
+    return await this.prisma.vaccine.create({
+      data,
+      include: {
+        animal: true,
+        type: {
+          select: {
+            name: true,
+          },
+        },
+      }
+    });
   }
 
   async findAll(params: VaccineQueryParamsDto) {
@@ -63,6 +73,7 @@ export class VaccinesService {
     };
 
     const include: any = {
+      animal: true,
       type: {
         select: {
           name: true,
@@ -81,6 +92,7 @@ export class VaccinesService {
     return await this.prisma.vaccine.findUniqueOrThrow({
       where: { id },
       include: {
+        animal: true,
         type: {
           select: {
             name: true,
@@ -96,6 +108,7 @@ export class VaccinesService {
       where: { id },
       data,
       include: {
+        animal: true,
         type: {
           select: {
             name: true,
@@ -107,6 +120,16 @@ export class VaccinesService {
 
   async remove(id: number) {
     await this.prisma.vaccine.findUniqueOrThrow({ where: { id } });
-    return await this.prisma.vaccine.delete({ where: { id } });
+    return await this.prisma.vaccine.delete({
+      where: { id },
+      include: {
+        animal: true,
+        type: {
+          select: {
+            name: true,
+          }
+        }
+      }
+    });
   }
 }
