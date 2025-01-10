@@ -20,7 +20,7 @@ export class VeterinariansService {
         data: {
           ...data,
           password: hashedPassword,
-          role: UserRole.FARMER,
+          role: UserRole.VETERINARIAN,
         },
       });
 
