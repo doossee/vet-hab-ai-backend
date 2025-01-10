@@ -14,7 +14,12 @@ const paginate: PaginateFunction = paginator({ perPage: 10 });
 export class VetStationsService {
   constructor(private readonly prisma: PrismaService) {}
   async create(data: CreateVetStationDto) {
-    return await this.prisma.vetStation.create({ data });
+    return await this.prisma.vetStation.create({ 
+      data,
+      include: {
+        district: true,
+      }
+    });
   }
 
   async findAll(params: VetStationQueryParamsDto) {
@@ -28,7 +33,9 @@ export class VetStationsService {
       ...(byId && { id: byId }),
     };
 
-    const include: any = {};
+    const include: any = {
+      district: true,
+    };
 
     return paginate(
       this.prisma.vetStation,
@@ -40,7 +47,9 @@ export class VetStationsService {
   async findOne(id: number) {
     return await this.prisma.vetStation.findUniqueOrThrow({
       where: { id },
-      include: {},
+      include: {
+        district: true,
+      },
     });
   }
 
@@ -49,12 +58,19 @@ export class VetStationsService {
     return await this.prisma.vetStation.update({
       where: { id },
       data,
-      include: {},
+      include: {
+        district: true,
+      },
     });
   }
 
   async remove(id: number) {
     await this.prisma.vetStation.findUniqueOrThrow({ where: { id } });
-    return await this.prisma.vetStation.delete({ where: { id } });
+    return await this.prisma.vetStation.delete({ 
+      where: { id },
+      include: {
+        district: true,
+      }
+    });
   }
 }
