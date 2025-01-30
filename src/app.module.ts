@@ -1,13 +1,13 @@
 import { Logger, Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { PrismaModule, loggingMiddleware } from 'nestjs-prisma';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthModule } from './auth/auth.module';
-import { ConfigModule } from '@nestjs/config';
-import { loggingMiddleware, PrismaModule } from 'nestjs-prisma';
-import { UsersModule } from './users/users.module';
-import { AnimalsModule } from './animals/animals.module';
-import { ManagementModule } from './management/management.module';
-import { InspecptionsModule } from './inspecptions/inspecptions.module';
+import { AnimalsModule } from './modules/animals/animals.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { InspecptionsModule } from './modules/inspecptions/inspecptions.module';
+import { ManagementModule } from './modules/management/management.module';
+import { UsersModule, VeterinariansModule, FarmersModule } from './modules/accounts';
 
 @Module({
   imports: [
@@ -25,6 +25,8 @@ import { InspecptionsModule } from './inspecptions/inspecptions.module';
     }),
     AuthModule,
     UsersModule,
+    VeterinariansModule,
+    FarmersModule,
     AnimalsModule,
     ManagementModule,
     InspecptionsModule,
