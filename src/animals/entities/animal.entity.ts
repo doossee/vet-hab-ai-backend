@@ -53,10 +53,10 @@ export class AnimalEntity implements Animal {
 
   @ApiProperty({
     description: 'Breed of the animal',
-    example: $Enums.Breed.MEAT,
-    enum: $Enums.Breed,
+    example: 1,
+    type: Number,
   })
-  breed: $Enums.Breed;
+  breedId: number;
 
   @ApiProperty({
     description: 'Birth date of the animal',

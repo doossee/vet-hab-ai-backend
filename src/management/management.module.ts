@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import {
   AnimalTypesService,
+  BreedsService,
   ColorsService,
   DiseaseTypesService,
   DistrictsService,
@@ -25,6 +26,7 @@ import {
 } from './controllers';
 import { EyelidsController } from './controllers/eyelids.controller';
 import { LeatherCoversController } from './controllers/leather-covers.controller';
+import { BreedsController } from './controllers/breeds.controller';
 
 @Module({
   controllers: [
@@ -39,6 +41,7 @@ import { LeatherCoversController } from './controllers/leather-covers.controller
     EyelidsController,
     VaccineTypesController,
     DiseaseTypesController,
+    BreedsController,
   ],
   providers: [
     RegionsService,
@@ -52,6 +55,7 @@ import { LeatherCoversController } from './controllers/leather-covers.controller
     EyelidsService,
     VaccineTypesService,
     DiseaseTypesService,
+    BreedsService,
   ],
 })
 export class ManagementModule {}

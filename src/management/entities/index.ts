@@ -10,3 +10,4 @@ export * from './disease-type.entity';
 export * from './paginated-response.entity';
 export * from './leather-cover.entity';
 export * from './eyelid.entity';
+export * from './breed.entity';

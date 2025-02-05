@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { $Enums, Breed, Gender, UserRole } from '@prisma/client';
 import { Type } from 'class-transformer';
-import { IsDate, IsEnum, IsInt, IsOptional, IsPositive } from 'class-validator';
+import { IsDate, IsEnum, IsIn, IsInt, IsOptional, IsPositive } from 'class-validator';
 import { BaseQueryParamsDto, SortOrder } from 'src/common/dto';
 
 export class AnimalQueryParamsDto extends BaseQueryParamsDto {
@@ -34,14 +34,15 @@ export class AnimalQueryParamsDto extends BaseQueryParamsDto {
   })
   readonly gender?: Gender;
 
-  @IsEnum(Breed)
+  @IsInt()
+  @IsPositive()
   @IsOptional()
   @ApiProperty({
-    description: 'Filter by animal breed',
-    enum: Breed,
+    description: 'Filter by animal breedId',
+    type: Number,
     required: false,
   })
-  readonly breed?: Breed;
+  readonly breedId?: number;
 
   @IsDate()
   @Type(() => Date)
@@ -107,7 +108,7 @@ export class AnimalQueryParamsDto extends BaseQueryParamsDto {
     enum: SortOrder,
     required: false,
   })
-  readonly byBreed?: SortOrder;
+  readonly byBreedId?: SortOrder;
 
   @IsEnum(SortOrder)
   @IsOptional()

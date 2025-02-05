@@ -11,7 +11,7 @@ export class AnimalsService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(data: CreateAnimalDto) {
-    return await this.prisma.animal.create({ 
+    return await this.prisma.animal.create({
       data,
       include: {
         type: {
@@ -23,6 +23,16 @@ export class AnimalsService {
           select: {
             name: true,
             hex: true,
+          },
+        },
+        breed: {
+          select: {
+            name: true,
+            parent: {
+              select: {
+                name: true,
+              },
+            },
           },
         },
       },
@@ -37,7 +47,7 @@ export class AnimalsService {
       farmerId,
       typeId,
       gender,
-      breed,
+      breedId,
       birthDate,
       colorId,
       createdDate,
@@ -45,7 +55,7 @@ export class AnimalsService {
       byFarmedId,
       byTypeId,
       byGender,
-      byBreed,
+      byBreedId,
       byBirthDate,
       byColorId,
       byCreatedDate,
@@ -63,7 +73,7 @@ export class AnimalsService {
       ...(farmerId && { farmerId: farmerId }),
       ...(typeId && { typeId: typeId }),
       ...(gender && { gender: gender }),
-      ...(breed && { breed: breed }),
+      ...(breedId && { breedId: breedId }),
       ...(birthDate && { birthDate: birthDate }),
       ...(colorId && { colorId: colorId }),
       ...(createdDate && {
@@ -79,7 +89,7 @@ export class AnimalsService {
       ...(byFarmedId && { farmerId: byFarmedId }),
       ...(byTypeId && { typeId: byTypeId }),
       ...(byGender && { gender: byGender }),
-      ...(byBreed && { breed: byBreed }),
+      ...(byBreedId && { breedId: byBreedId }),
       ...(byBirthDate && { birthDate: byBirthDate }),
       ...(byColorId && { colorId: byColorId }),
       ...(byCreatedDate && { createdAt: byCreatedDate }),
@@ -95,6 +105,16 @@ export class AnimalsService {
         select: {
           name: true,
           hex: true,
+        },
+      },
+      breed: {
+        select: {
+          name: true,
+          parent: {
+            select: {
+              name: true,
+            },
+          },
         },
       },
     };
@@ -121,12 +141,21 @@ export class AnimalsService {
             hex: true,
           },
         },
+        breed: {
+          select: {
+            name: true,
+            parent: {
+              select: {
+                name: true,
+              },
+            },
+          },
+        },
       },
     });
   }
 
   async update(id: number, data: UpdateAnimalDto) {
-    await this.prisma.animal.findUniqueOrThrow({ where: { id } });
     return await this.prisma.animal.update({
       where: { id },
       data,
@@ -142,13 +171,22 @@ export class AnimalsService {
             hex: true,
           },
         },
+        breed: {
+          select: {
+            name: true,
+            parent: {
+              select: {
+                name: true,
+              },
+            },
+          },
+        },
       },
     });
   }
 
   async remove(id: number) {
-    await this.prisma.animal.findUniqueOrThrow({ where: { id } });
-    return await this.prisma.animal.delete({ 
+    return await this.prisma.animal.delete({
       where: { id },
       include: {
         type: {
@@ -160,6 +198,16 @@ export class AnimalsService {
           select: {
             name: true,
             hex: true,
+          },
+        },
+        breed: {
+          select: {
+            name: true,
+            parent: {
+              select: {
+                name: true,
+              },
+            },
           },
         },
       },

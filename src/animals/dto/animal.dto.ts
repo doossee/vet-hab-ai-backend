@@ -4,6 +4,7 @@ import { Type } from 'class-transformer';
 import {
   IsDate,
   IsEnum,
+  IsIn,
   IsInt,
   IsNotEmpty,
   IsNumber,
@@ -83,14 +84,14 @@ export class CreateAnimalDto {
   })
   readonly gender: Gender;
 
-  @IsEnum(Breed)
+  @IsInt()
+  @IsPositive()
   @IsNotEmpty()
   @ApiProperty({
     description: 'Breed of the animal',
-    example: Breed.MILK,
-    enum: Breed,
+    example: 1
   })
-  readonly breed: Breed;
+  readonly breedId: number;
 
   @IsDate()
   @Type(() => Date)

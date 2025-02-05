@@ -9,11 +9,6 @@ enum Gender {
   FEMALE // ayol
 }
 
-enum Breed {
-  MEAT // go'sht
-  MILK // sut
-}
-
 enum BodyType {
   WEAK // kuchsiz
   MEDIUM // o'rtacha

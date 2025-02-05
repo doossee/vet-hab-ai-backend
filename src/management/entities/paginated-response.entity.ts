@@ -11,6 +11,7 @@ import { VaccineTypeEntity } from './vaccine-type.entity';
 import { DiseaseTypeEntity } from './disease-type.entity';
 import { LeatherCoverEntity } from './leather-cover.entity';
 import { EyelidEntity } from './eyelid.entity';
+import { BreedEntity } from './breed.entity';
 
 export class PaginatedRegionsEntity {
   @ApiProperty({ type: [RegionEntity] })
@@ -85,21 +86,25 @@ export class PaginatedDiseaseTypesEntity {
 }
 
 export class PaginatedLeatherCoversEntity {
-@ApiProperty({ type: [LeatherCoverEntity] })
-data: DiseaseTypeEntity[];
+  @ApiProperty({ type: [LeatherCoverEntity] })
+  data: LeatherCoverEntity[];
 
-@ApiProperty({ type: MetaDateEntity })
-meta: MetaDateEntity;
+  @ApiProperty({ type: MetaDateEntity })
+  meta: MetaDateEntity;
 }
 
 export class PaginatedEyelidsEntity {
-@ApiProperty({ type: [EyelidEntity] })
-data: DiseaseTypeEntity[];
+  @ApiProperty({ type: [EyelidEntity] })
+  data: EyelidEntity[];
 
-@ApiProperty({ type: MetaDateEntity })
-meta: MetaDateEntity;
+  @ApiProperty({ type: MetaDateEntity })
+  meta: MetaDateEntity;
 }
 
+export class PaginatedBreedsEntity {
+  @ApiProperty({ type: [BreedEntity] })
+  data: BreedEntity[];
 
-
-
+  @ApiProperty({ type: MetaDateEntity })
+  meta: MetaDateEntity;
+}

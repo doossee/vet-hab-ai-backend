@@ -10,12 +10,14 @@ model Animal {
   typeId Int        @map("type_id")
   type   AnimalType @relation(fields: [typeId], references: [id])
 
-  name   String
-  gender Gender
-  breed  Breed
+  name    String
+  gender  Gender
 
   birthDate DateTime
   weight    Float
+
+  breedId Int    @map("breed_id")
+  breed   Breed  @relation(fields: [breedId], references: [id])
 
   colorId Int   @map("color_id")
   color   Color @relation(fields: [colorId], references: [id])

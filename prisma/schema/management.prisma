@@ -36,6 +36,17 @@ model AnimalType {
   animals Animal[]
 }
 
+model Breed {
+  id Int @id @default(autoincrement())
+
+  name     String
+  parentId Int?   @map("parent_id")
+  parent   Breed? @relation("BreedToParent", fields: [parentId], references: [id])
+
+  children Breed[]  @relation("BreedToParent")
+  animals  Animal[]
+}
+
 model Color {
   id Int @id @default(autoincrement())
 

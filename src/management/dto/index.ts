@@ -10,3 +10,4 @@ export * from './disease-type.dto';
 export * from './query-params.dto';
 export * from './leather-cover.dto';
 export * from './eyelid.dto';
+export * from './breed.dto';

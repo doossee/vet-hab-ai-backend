@@ -11,3 +11,4 @@ export class VaccineTypeQueryParamsDto extends BaseQueryParamsDto {}
 export class DiseaseTypeQueryParamsDto extends BaseQueryParamsDto {}
 export class LeatherCoverQueryParamsDto extends BaseQueryParamsDto {}
 export class EyelidQueryParamsDto extends BaseQueryParamsDto {}
+export class BreedQueryParamsDto extends BaseQueryParamsDto {}
