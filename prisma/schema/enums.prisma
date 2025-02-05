@@ -30,7 +30,16 @@ enum BodyStructure {
   WEAK // bo'sh
 }
 
-enum CustomerType {
+enum BodyPosition {
+  NATURAL // tabiy
+  FORCED // majbiriy 
+  FORCED_STANDING // majbiriy tik turgan
+  FORCED_LYING // majbiriy yotgan
+  FORCED_SITTING // majbiriy o’tirgan
+  NON_THERAPEUTIC // tabiy bo’lmagan
+}
+
+enum CharacterType {
   MOBILE // harakatchan
   CALM // tinch
 }

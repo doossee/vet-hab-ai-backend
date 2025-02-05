@@ -1,14 +1,16 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import {
+  BodyPosition,
   BodyStructure,
   BodyType,
-  CustomerType,
+  CharacterType,
   ObesityType,
+  Prisma,
 } from '@prisma/client';
 import { IsEnum, IsInt, IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString } from 'class-validator';
 import { IsEntityExist } from 'src/common/validators';
 
-export class CreateGeneralInspectionDto {
+export class CreateGeneralInspectionDto implements Prisma.GeneralInspectionUncheckedCreateInput {
   @IsInt()
   @IsPositive()
   @IsNotEmpty()
@@ -39,6 +41,15 @@ export class CreateGeneralInspectionDto {
   })
   readonly bodyStructure: BodyStructure;
 
+  @IsEnum(BodyPosition)
+  @IsNotEmpty()
+  @ApiProperty({
+    description: 'The body position of the animal.',
+    enum: BodyPosition,
+    example: BodyPosition.FORCED,
+  })
+  readonly bodyPosition: BodyPosition;
+
   @IsEnum(ObesityType)
   @IsNotEmpty()
   @ApiProperty({
@@ -48,14 +59,14 @@ export class CreateGeneralInspectionDto {
   })
   readonly obesity: ObesityType;
 
-  @IsEnum(CustomerType)
+  @IsEnum(CharacterType)
   @IsNotEmpty()
   @ApiProperty({
     description: 'The customer type associated with the animal.',
-    enum: CustomerType,
-    example: CustomerType.CALM,
+    enum: CharacterType,
+    example: CharacterType.CALM,
   })
-  readonly customerType: CustomerType;
+  readonly character: CharacterType;
 
   @IsInt()
   @IsPositive()

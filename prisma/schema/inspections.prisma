@@ -8,8 +8,9 @@ model GeneralInspection {
 
   bodyType      BodyType      @map("body_type") // jussasi
   bodyStructure BodyStructure @map("body_structure") // tana tuzilishi
+  bodyPosition  BodyPosition  @map("body_position")
   obesity       ObesityType // semizligi
-  customerType  CustomerType  @map("customer_type") // hayvon mijozi gabitus         Gabitus?
+  character     CharacterType // hayvon mijozi gabitus         Gabitus?
 
   leatherCoverId Int          @map("leather_cover_id")
   leatherCover   LeatherCover @relation(fields: [leatherCoverId], references: [id])

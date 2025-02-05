@@ -5,12 +5,12 @@ export class AnimalEntity implements Animal {
   constructor({ ...data }: Partial<AnimalEntity>) {
     Object.assign(this, data);
   }
-
+  
   @ApiProperty({
     description: 'Name of the animal',
     example: 'Bella',
   })
-  name: string;
+  nameOrCode: string;
 
   @ApiProperty({
     description: 'Unique identifier of the animal',

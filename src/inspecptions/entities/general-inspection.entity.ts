@@ -31,13 +31,19 @@ export class GeneralInspectionEntity implements GeneralInspection {
   bodyStructure: $Enums.BodyStructure;
 
   @ApiProperty({
+    description: 'Body position of the animal',
+    enum: $Enums.BodyPosition,
+  })
+  bodyPosition: $Enums.BodyPosition;
+
+  @ApiProperty({
     description: 'Obesity type of the animal',
     enum: $Enums.ObesityType,
   })
   obesity: $Enums.ObesityType;
 
-  @ApiProperty({ description: 'Customer type', enum: $Enums.CustomerType })
-  customerType: $Enums.CustomerType;
+  @ApiProperty({ description: 'Customer type', enum: $Enums.CharacterType })
+  character: $Enums.CharacterType;
 
   @ApiProperty({ description: 'Leather cover ID of the animal', example: 5 })
   leatherCoverId: number;

@@ -1,7 +1,6 @@
 model Animal {
   id Int @id @default(autoincrement())
 
-  idCode      String   @unique @map("id_code")
   arrivalDate DateTime @map("arrival_date")
 
   farmerId Int    @map("farmer_id")
@@ -10,14 +9,14 @@ model Animal {
   typeId Int        @map("type_id")
   type   AnimalType @relation(fields: [typeId], references: [id])
 
-  name    String
-  gender  Gender
+  nameOrCode String @unique @map("name_or_code")
+  gender     Gender
 
   birthDate DateTime
   weight    Float
 
-  breedId Int    @map("breed_id")
-  breed   Breed  @relation(fields: [breedId], references: [id])
+  breedId Int   @map("breed_id")
+  breed   Breed @relation(fields: [breedId], references: [id])
 
   colorId Int   @map("color_id")
   color   Color @relation(fields: [colorId], references: [id])

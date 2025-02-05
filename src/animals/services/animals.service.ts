@@ -65,8 +65,7 @@ export class AnimalsService {
       ...(search && {
         animal: {
           OR: [
-            { idCode: { contains: search, mode: 'insensitive' } },
-            { name: { contains: search, mode: 'insensitive' } },
+            { nameOrCode: { contains: search, mode: 'insensitive' } },
           ],
         },
       }),

@@ -16,18 +16,6 @@ import {
 import { IsEntityExist } from 'src/common/validators';
 
 export class CreateAnimalDto {
-  @IsString()
-  @MinLength(1)
-  @MaxLength(10)
-  @IsNotEmpty()
-  @ApiProperty({
-    description: 'Unique identification code for the animal',
-    example: 'A123456789',
-    maxLength: 10,
-    minLength: 1,
-  })
-  readonly idCode: string;
-
   @IsDate()
   @Type(() => Date)
   @IsNotEmpty()
@@ -68,12 +56,12 @@ export class CreateAnimalDto {
   @MaxLength(50)
   @IsNotEmpty()
   @ApiProperty({
-    description: 'Name of the animal',
+    description: 'Name or code of the animal',
     example: 'Bella',
     maxLength: 50,
     minLength: 1,
   })
-  readonly name: string;
+  readonly nameOrCode: string;
 
   @IsEnum(Gender)
   @IsNotEmpty()
