@@ -37,6 +37,33 @@ async function main() {
     // Add other regions with their districts
   ];
 
+  const breedWithParents = [
+    {
+      name: 'Мясные',
+      children: [
+        'Черно-пёстрая',
+        'Холмогорская',
+        'Ярославская',
+        'Красно-степная',
+        'Бушуевская',
+        'Симентальская',
+        'Казахстанская белоголовая',
+        'Жанта-Гертруда',
+        'Герефорд',
+      ],
+    },
+    {
+      name: 'Молочные',
+      children: [
+        'Красно-пёстрая голштинская',
+        'Голштино-фризская',
+        'Красно-степная',
+        'Бушуевская',
+        'Красно-пёстрая голштинская',
+      ],
+    },
+  ];
+
   // Insert regions and districts
   for (const region of regionsWithDistricts) {
     const createdRegion = await prisma.region.upsert({
@@ -67,6 +94,25 @@ async function main() {
       role: 'ADMIN',
     },
   });
+
+  for (const breed of breedWithParents) {
+    // Создаем родительскую породу
+    const parentBreed = await prisma.breed.create({
+      data: { name: breed.name },
+    });
+
+    // Создаем дочерние породы, привязывая их к родителю
+    for (const childName of breed.children) {
+      await prisma.breed.create({
+        data: {
+          name: childName,
+          parentId: parentBreed.id, // Указываем ID родительской породы
+        },
+      });
+    }
+
+    console.log(`Created breed: ${breed.name} with children.`);
+  }
 
   console.log({ user1 });
 }
