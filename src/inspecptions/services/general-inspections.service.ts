@@ -40,7 +40,7 @@ export class GeneralInspectionsService {
         leatherCover: true,
         eyelid: true,
         color: true,
-        inspection: true, 
+        inspection: true,
       }
     });
   }
@@ -49,15 +49,23 @@ export class GeneralInspectionsService {
     const {
       page,
       perPage,
+      createdDate,
       byId,
+      byCreatedDate,
     } = params;
 
     const where: Prisma.GeneralInspectionWhereInput = {
-      
+      ...(createdDate && {
+        createdAt: {
+          gte: new Date(createdDate.setHours(0, 0, 0, 0)),
+          lt: new Date(createdDate.setHours(23, 59, 59, 999)),
+        },
+      }),
     };
 
     const orderBy: Prisma.GeneralInspectionOrderByWithRelationInput = {
       ...(byId && { id: byId }),
+      ...(byCreatedDate && { createdAt: byCreatedDate }),
     };
 
     const include: any = {
@@ -65,7 +73,7 @@ export class GeneralInspectionsService {
       leatherCover: true,
       eyelid: true,
       color: true,
-      inspection: true,     
+      inspection: true,
     };
 
     return await paginate(
@@ -78,7 +86,7 @@ export class GeneralInspectionsService {
   async findOne(id: number) {
     return await this.prisma.generalInspection.findUniqueOrThrow({
       where: { id },
-      include: { 
+      include: {
         animal: true,
         leatherCover: true,
         eyelid: true,
@@ -89,13 +97,13 @@ export class GeneralInspectionsService {
   }
 
   async update(id: number, data: UpdateGeneralInspectionDto) {
-    const { 
-      temperature, 
-      pulse, 
-      respiratoryRate, 
-      rumination, 
-      conclusion, 
-      ...genInsData 
+    const {
+      temperature,
+      pulse,
+      respiratoryRate,
+      rumination,
+      conclusion,
+      ...genInsData
     } = data;
     const genInspection = await this.prisma.generalInspection.findUniqueOrThrow({ where: { id } });
 
@@ -110,7 +118,7 @@ export class GeneralInspectionsService {
       }
     })
     return await this.prisma.generalInspection.update({
-      where: { id }, 
+      where: { id },
       data: genInsData,
       include: {
         animal: true,
@@ -131,7 +139,7 @@ export class GeneralInspectionsService {
         leatherCover: true,
         eyelid: true,
         color: true,
-        inspection: true, 
+        inspection: true,
       }
     });
   }
