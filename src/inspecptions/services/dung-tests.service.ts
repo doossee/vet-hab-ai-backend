@@ -8,7 +8,7 @@ const paginate: PaginateFunction = paginator({ perPage: 30 });
 
 @Injectable()
 export class DungTestsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   async create(data: CreateDungTestDto) {
     return await this.prisma.dungTest.create({
@@ -25,15 +25,25 @@ export class DungTestsService {
     const {
       page,
       perPage,
+      animalId,
+      createdDate,
       byId,
+      byCreatedDate,
     } = params;
 
     const where: Prisma.DungTestWhereInput = {
-      
+      ...(animalId && { animalId: animalId }),
+      ...(createdDate && {
+        createdAt: {
+          gte: new Date(createdDate.setHours(0, 0, 0, 0)),
+          lt: new Date(createdDate.setHours(23, 59, 59, 999)),
+        },
+      }),
     };
 
     const orderBy: Prisma.DungTestOrderByWithRelationInput = {
       ...(byId && { id: byId }),
+      ...(byCreatedDate && { createdAt: byCreatedDate }),
     };
 
     const include: any = {
@@ -50,7 +60,7 @@ export class DungTestsService {
   }
 
   async findOne(id: number) {
-    return await this.prisma.dungTest.findUniqueOrThrow({ 
+    return await this.prisma.dungTest.findUniqueOrThrow({
       where: { id },
       include: {
         animal: true,
@@ -62,7 +72,7 @@ export class DungTestsService {
 
   async update(id: number, data: UpdateDungTestDto) {
     await this.prisma.dungTest.findUniqueOrThrow({ where: { id } });
-    return await this.prisma.dungTest.update({ 
+    return await this.prisma.dungTest.update({
       where: { id },
       data,
       include: {
@@ -75,7 +85,7 @@ export class DungTestsService {
 
   async remove(id: number) {
     await this.prisma.dungTest.findUniqueOrThrow({ where: { id } });
-    return await this.prisma.dungTest.delete({ 
+    return await this.prisma.dungTest.delete({
       where: { id },
       include: {
         animal: true,

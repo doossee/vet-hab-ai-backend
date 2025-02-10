@@ -49,12 +49,14 @@ export class GeneralInspectionsService {
     const {
       page,
       perPage,
+      animalId,
       createdDate,
       byId,
       byCreatedDate,
     } = params;
 
     const where: Prisma.GeneralInspectionWhereInput = {
+      ...(animalId && { inspection: { animalId: animalId } }),
       ...(createdDate && {
         createdAt: {
           gte: new Date(createdDate.setHours(0, 0, 0, 0)),

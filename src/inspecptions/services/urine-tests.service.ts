@@ -8,32 +8,43 @@ const paginate: PaginateFunction = paginator({ perPage: 30 });
 
 @Injectable()
 export class UrineTestsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   async create(data: CreateUrineTestDto) {
-    return await this.prisma.urineTest.create({ 
-      data, 
+    return await this.prisma.urineTest.create({
+      data,
       include: {
         animal: true,
         color: true,
         disease: true
-    } });
-    
+      }
+    });
+
   }
 
   async findAll(params: UrineTestQueryParamsDto) {
     const {
       page,
       perPage,
+      animalId,
+      createdDate,
       byId,
+      byCreatedDate,
     } = params;
 
-    const where: Prisma.GeneralInspectionWhereInput = {
-      
+    const where: Prisma.UrineTestWhereInput = {
+      ...(animalId && { animalId: animalId }),
+      ...(createdDate && {
+        createdAt: {
+          gte: new Date(createdDate.setHours(0, 0, 0, 0)),
+          lt: new Date(createdDate.setHours(23, 59, 59, 999)),
+        },
+      }),
     };
 
-    const orderBy: Prisma.GeneralInspectionOrderByWithRelationInput = {
+    const orderBy: Prisma.UrineTestOrderByWithRelationInput = {
       ...(byId && { id: byId }),
+      ...(byCreatedDate && { createdAt: byCreatedDate }),
     };
 
     const include: any = {
@@ -74,7 +85,7 @@ export class UrineTestsService {
 
   async remove(id: number) {
     await this.prisma.urineTest.findUniqueOrThrow({ where: { id } });
-    return await this.prisma.urineTest.delete({ 
+    return await this.prisma.urineTest.delete({
       where: { id },
       include: {
         animal: true,

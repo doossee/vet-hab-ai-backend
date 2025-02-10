@@ -8,7 +8,7 @@ const paginate: PaginateFunction = paginator({ perPage: 30 });
 
 @Injectable()
 export class BloodSerumTestsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   async create(data: CreateBloodSerumTestDto) {
     return await this.prisma.bloodSerumTest.create({
@@ -23,15 +23,25 @@ export class BloodSerumTestsService {
     const {
       page,
       perPage,
+      animalId,
+      createdDate,
       byId,
+      byCreatedDate,
     } = params;
 
     const where: Prisma.BloodSerumTestWhereInput = {
-      
+      ...(animalId && { animalId: animalId }),
+      ...(createdDate && {
+        createdAt: {
+          gte: new Date(createdDate.setHours(0, 0, 0, 0)),
+          lt: new Date(createdDate.setHours(23, 59, 59, 999)),
+        },
+      }),
     };
 
     const orderBy: Prisma.BloodSerumTestOrderByWithRelationInput = {
       ...(byId && { id: byId }),
+      ...(byCreatedDate && { createdAt: byCreatedDate }),
     };
 
     const include: any = {
@@ -55,18 +65,18 @@ export class BloodSerumTestsService {
 
   async update(id: number, data: UpdateBloodSerumTestDto) {
     await this.prisma.bloodSerumTest.findUniqueOrThrow({ where: { id } });
-    return await this.prisma.bloodSerumTest.update({ 
-      where: { id }, 
+    return await this.prisma.bloodSerumTest.update({
+      where: { id },
       data,
       include: {
         animal: true,
-      } 
+      }
     });
   }
 
   async remove(id: number) {
     await this.prisma.bloodSerumTest.findUniqueOrThrow({ where: { id } });
-    return await this.prisma.bloodSerumTest.delete({ 
+    return await this.prisma.bloodSerumTest.delete({
       where: { id },
       include: {
         animal: true,

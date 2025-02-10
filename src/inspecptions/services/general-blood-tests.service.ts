@@ -23,15 +23,25 @@ export class GeneralBloodTestsService {
     const {
       page,
       perPage,
+      animalId,
+      createdDate,
       byId,
+      byCreatedDate,
     } = params;
 
     const where: Prisma.GeneralBloodTestWhereInput = {
-      
+      ...(animalId && { animalId: animalId }),
+      ...(createdDate && {
+        createdAt: {
+          gte: new Date(createdDate.setHours(0, 0, 0, 0)),
+          lt: new Date(createdDate.setHours(23, 59, 59, 999)),
+        },
+      }),
     };
 
     const orderBy: Prisma.GeneralBloodTestOrderByWithRelationInput = {
       ...(byId && { id: byId }),
+      ...(byCreatedDate && { createdAt: byCreatedDate }),
     };
 
     const include: any = {
@@ -56,7 +66,7 @@ export class GeneralBloodTestsService {
 
   async update(id: number, data: UpdateGeneralBloodTestDto) {
     await this.prisma.generalBloodTest.findUniqueOrThrow({ where: { id } });
-    return await this.prisma.generalBloodTest.update({ 
+    return await this.prisma.generalBloodTest.update({
       where: { id },
       data,
       include: {
@@ -67,7 +77,7 @@ export class GeneralBloodTestsService {
 
   async remove(id: number) {
     await this.prisma.generalBloodTest.findUniqueOrThrow({ where: { id } });
-    return await this.prisma.generalBloodTest.delete({ 
+    return await this.prisma.generalBloodTest.delete({
       where: { id },
       include: {
         animal: true,

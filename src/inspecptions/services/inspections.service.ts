@@ -8,10 +8,10 @@ const paginate: PaginateFunction = paginator({ perPage: 30 });
 
 @Injectable()
 export class InspectionsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   async create(data: CreateInspectionDto) {
-    return await this.prisma.inspection.create({ 
+    return await this.prisma.inspection.create({
       data,
       include: {
         animal: true
@@ -23,19 +23,29 @@ export class InspectionsService {
     const {
       page,
       perPage,
+      animalId,
+      createdDate,
       byId,
+      byCreatedDate,
     } = params;
 
     const where: Prisma.InspectionWhereInput = {
-      
+      ...(animalId && { animalId: animalId }),
+      ...(createdDate && {
+        createdAt: {
+          gte: new Date(createdDate.setHours(0, 0, 0, 0)),
+          lt: new Date(createdDate.setHours(23, 59, 59, 999)),
+        },
+      }),
     };
 
     const orderBy: Prisma.InspectionOrderByWithRelationInput = {
       ...(byId && { id: byId }),
+      ...(byCreatedDate && { createdAt: byCreatedDate }),
     };
 
     const include: any = {
-      animal: true,     
+      animal: true,
     };
 
     return await paginate(
@@ -46,7 +56,7 @@ export class InspectionsService {
   }
 
   async findOne(id: number) {
-    return await this.prisma.inspection.findUniqueOrThrow({ 
+    return await this.prisma.inspection.findUniqueOrThrow({
       where: { id },
       include: {
         animal: true
@@ -56,8 +66,8 @@ export class InspectionsService {
 
   async update(id: number, data: UpdateInspectionDto) {
     await this.prisma.inspection.findUniqueOrThrow({ where: { id } });
-    return await this.prisma.inspection.update({ 
-      where: { id }, 
+    return await this.prisma.inspection.update({
+      where: { id },
       data,
       include: {
         animal: true
@@ -67,7 +77,7 @@ export class InspectionsService {
 
   async remove(id: number) {
     await this.prisma.inspection.findUniqueOrThrow({ where: { id } });
-    return await this.prisma.inspection.delete({ 
+    return await this.prisma.inspection.delete({
       where: { id },
       include: {
         animal: true

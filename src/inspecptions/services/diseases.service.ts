@@ -8,10 +8,10 @@ const paginate: PaginateFunction = paginator({ perPage: 30 });
 
 @Injectable()
 export class DiseasesService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   async create(data: CreateDiseaseDto) {
-    return await this.prisma.disease.create({ 
+    return await this.prisma.disease.create({
       data,
       include: {
         animal: true,
@@ -24,15 +24,25 @@ export class DiseasesService {
     const {
       page,
       perPage,
+      animalId,
+      createdDate,
       byId,
+      byCreatedDate,
     } = params;
 
     const where: Prisma.DiseaseWhereInput = {
-      
+      ...(animalId && { animalId: animalId }),
+      ...(createdDate && {
+        createdAt: {
+          gte: new Date(createdDate.setHours(0, 0, 0, 0)),
+          lt: new Date(createdDate.setHours(23, 59, 59, 999)),
+        },
+      }),
     };
 
     const orderBy: Prisma.DiseaseOrderByWithRelationInput = {
       ...(byId && { id: byId }),
+      ...(byCreatedDate && { createdAt: byCreatedDate }),
     };
 
     const include: any = {
@@ -48,8 +58,8 @@ export class DiseasesService {
   }
 
   async findOne(id: number) {
-    return await this.prisma.disease.findUniqueOrThrow({ 
-      where: { id }, 
+    return await this.prisma.disease.findUniqueOrThrow({
+      where: { id },
       include: {
         animal: true,
         type: true
@@ -59,7 +69,7 @@ export class DiseasesService {
 
   async update(id: number, data: UpdateDiseaseDto) {
     await this.prisma.disease.findUniqueOrThrow({ where: { id } });
-    return await this.prisma.disease.update({ 
+    return await this.prisma.disease.update({
       where: { id },
       data,
       include: {
@@ -71,7 +81,7 @@ export class DiseasesService {
 
   async remove(id: number) {
     await this.prisma.disease.findUniqueOrThrow({ where: { id } });
-    return await this.prisma.disease.delete({ 
+    return await this.prisma.disease.delete({
       where: { id },
       include: {
         animal: true,
