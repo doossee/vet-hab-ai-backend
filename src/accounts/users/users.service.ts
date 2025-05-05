@@ -123,9 +123,14 @@ export class UsersService {
 
   async update(id: number, data: UpdateUserDto) {
     await this.prisma.user.findUniqueOrThrow({ where: { id } });
+    const passHash = data.password ? await bcrypt.hash(data.password, 10) : undefined;
+
     return await this.prisma.user.update({
       where: { id },
-      data,
+      data: {
+        password: data.password ? passHash : undefined,
+        ...data,
+      },
       include: {
         district: {
           include: {
