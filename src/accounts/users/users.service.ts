@@ -125,12 +125,17 @@ export class UsersService {
     await this.prisma.user.findUniqueOrThrow({ where: { id } });
     const passHash = data.password ? await bcrypt.hash(data.password, 10) : undefined;
 
+    const updateData = {
+      ...data
+    };
+
+    if (data.password) {
+      updateData.password = passHash;
+    }
+
     return await this.prisma.user.update({
       where: { id },
-      data: {
-        password: data.password ? passHash : undefined,
-        ...data,
-      },
+      data: updateData,
       include: {
         district: {
           include: {
