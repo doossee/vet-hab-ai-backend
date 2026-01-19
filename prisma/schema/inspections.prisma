@@ -71,6 +71,7 @@ model Disease {
   inspections Inspection[]
   urineTests  UrineTest[]
   dungTests   DungTest[]
+  rumenTests  RumenTest[]
 }
 
 model GeneralBloodTest {
@@ -120,6 +121,12 @@ model BloodSerumTest {
   urea              Float? // siydik
   ureaAcid          Float? @map("urea_acid") // siydik kislotasi
 
+  // Trace elements for disease detection AI
+  copper    Float? // med (x12)
+  cobalt    Float? // kobalt (x13)
+  manganese Float? // marganets (x14)
+  zinc      Float? // tsink (x15)
+
   animalId Int    @map("animal_id")
   animal   Animal @relation(fields: [animalId], references: [id], onDelete: Cascade)
 
@@ -164,6 +171,25 @@ model DungTest {
   form        DungForm
   consistency Int
   worms       Int
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+}
+
+model RumenTest {
+  id Int @id @default(autoincrement())
+
+  animalId Int?    @map("animal_id")
+  animal   Animal? @relation(fields: [animalId], references: [id], onDelete: Cascade)
+
+  diseaseId Int?     @map("disease_id")
+  disease   Disease? @relation(fields: [diseaseId], references: [id], onDelete: Cascade)
+
+  date       DateTime
+  conclusion String?  @db.Text()
+
+  infusoriaCount Float? @map("infusoria_count") // kolichestvo infuzoriy v rubtse (x16)
+  scarFluidState Float? @map("scar_fluid_state") // sostoyanie rubtsovoy zhidkosti (x17)
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
