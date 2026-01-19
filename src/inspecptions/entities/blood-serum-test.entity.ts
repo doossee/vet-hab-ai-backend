@@ -133,6 +133,30 @@ export class BloodSerumTestEntity implements BloodSerumTest {
   ureaAcid: number;
 
   @ApiProperty({
+    description: 'The copper trace element level in the blood serum.',
+    example: 1.2,
+  })
+  copper: number;
+
+  @ApiProperty({
+    description: 'The cobalt trace element level in the blood serum.',
+    example: 0.8,
+  })
+  cobalt: number;
+
+  @ApiProperty({
+    description: 'The manganese trace element level in the blood serum.',
+    example: 0.5,
+  })
+  manganese: number;
+
+  @ApiProperty({
+    description: 'The zinc trace element level in the blood serum.',
+    example: 1.5,
+  })
+  zinc: number;
+
+  @ApiProperty({
     description: 'The ID of the animal this test is associated with.',
     example: 101,
   })
