@@ -228,3 +228,36 @@ export class DungTestQueryParamsDto extends BaseQueryParamsDto {
   })
   readonly byCreatedDate?: SortOrder;
 }
+
+export class RumenTestQueryParamsDto extends BaseQueryParamsDto {
+  search?: string = null;
+
+  @IsInt()
+  @IsPositive()
+  @IsOptional()
+  @ApiProperty({
+    description: 'Filter by animal id',
+    example: 1,
+    required: false,
+  })
+  readonly animalId?: number;
+
+  @IsDate()
+  @Type(() => Date)
+  @IsOptional()
+  @ApiProperty({
+    description: 'Filter by user creation date in ISO format',
+    example: '2024-01-01T00:00:00.000Z',
+    required: false,
+  })
+  readonly createdDate?: Date;
+
+  @IsEnum(SortOrder)
+  @IsOptional()
+  @ApiProperty({
+    description: 'Sort by creation date (ASC or DESC)',
+    enum: SortOrder,
+    required: false,
+  })
+  readonly byCreatedDate?: SortOrder;
+}

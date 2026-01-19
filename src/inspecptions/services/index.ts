@@ -5,3 +5,4 @@ export * from './general-blood-tests.service';
 export * from './blood-serum-tests.service';
 export * from './urine-tests.service';
 export * from './dung-tests.service';
+export * from './rumen-tests.service';

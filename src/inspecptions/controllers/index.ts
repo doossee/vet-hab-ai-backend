@@ -5,3 +5,4 @@ export * from './general-blood-tests.controller';
 export * from './blood-serum-tests.controller';
 export * from './urine-tests.controller';
 export * from './dung-tests.controller';
+export * from './rumen-tests.controller';

@@ -189,6 +189,42 @@ export class CreateBloodSerumTestDto {
   })
   readonly ureaAcid?: number;
 
+  @IsNumber()
+  @IsPositive()
+  @IsOptional()
+  @ApiProperty({
+    description: 'The copper (trace element) level in blood serum (mmol/L).',
+    example: 0.015,
+  })
+  readonly copper?: number;
+
+  @IsNumber()
+  @IsPositive()
+  @IsOptional()
+  @ApiProperty({
+    description: 'The cobalt (trace element) level in blood serum (mmol/L).',
+    example: 0.002,
+  })
+  readonly cobalt?: number;
+
+  @IsNumber()
+  @IsPositive()
+  @IsOptional()
+  @ApiProperty({
+    description: 'The manganese (trace element) level in blood serum (mmol/L).',
+    example: 0.018,
+  })
+  readonly manganese?: number;
+
+  @IsNumber()
+  @IsPositive()
+  @IsOptional()
+  @ApiProperty({
+    description: 'The zinc (trace element) level in blood serum (mmol/L).',
+    example: 0.12,
+  })
+  readonly zinc?: number;
+
   @IsInt()
   @IsPositive()
   @IsNotEmpty()

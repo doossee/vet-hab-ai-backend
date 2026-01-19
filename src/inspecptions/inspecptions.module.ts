@@ -6,6 +6,7 @@ import {
   GeneralBloodTestController,
   GeneralInspectionController,
   InspectionsController,
+  RumenTestsController,
   UrineTestsController,
 } from './controllers';
 import {
@@ -15,6 +16,7 @@ import {
   GeneralBloodTestsService,
   GeneralInspectionsService,
   InspectionsService,
+  RumenTestsService,
   UrineTestsService,
 } from './services';
 
@@ -27,6 +29,7 @@ import {
     BloodSerumTestsController,
     UrineTestsController,
     DungTestsController,
+    RumenTestsController,
   ],
   providers: [
     GeneralInspectionsService,
@@ -36,6 +39,7 @@ import {
     BloodSerumTestsService,
     UrineTestsService,
     DungTestsService,
+    RumenTestsService,
   ],
 })
 export class InspecptionsModule {}
