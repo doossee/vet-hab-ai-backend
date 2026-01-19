@@ -9,6 +9,7 @@ export class GeneralInspectionQueryParamsDto extends BaseQueryParamsDto {
   @IsInt()
   @IsPositive()
   @IsOptional()
+  @Type(() => Number)
   @ApiProperty({
     description: 'Filter by animal id',
     example: 1,
@@ -42,6 +43,7 @@ export class InspectionQueryParamsDto extends BaseQueryParamsDto {
   @IsInt()
   @IsPositive()
   @IsOptional()
+  @Type(() => Number)
   @ApiProperty({
     description: 'Filter by animal id',
     example: 1,
@@ -74,6 +76,7 @@ export class DiseaseQueryParamsDto extends BaseQueryParamsDto {
   @IsInt()
   @IsPositive()
   @IsOptional()
+  @Type(() => Number)
   @ApiProperty({
     description: 'Filter by animal id',
     example: 1,
@@ -106,6 +109,7 @@ export class GeneralBloodTestQueryParamsDto extends BaseQueryParamsDto {
   @IsInt()
   @IsPositive()
   @IsOptional()
+  @Type(() => Number)
   @ApiProperty({
     description: 'Filter by animal id',
     example: 1,
@@ -138,6 +142,7 @@ export class BloodSerumTestQueryParamsDto extends BaseQueryParamsDto {
   @IsInt()
   @IsPositive()
   @IsOptional()
+  @Type(() => Number)
   @ApiProperty({
     description: 'Filter by animal id',
     example: 1,
@@ -170,6 +175,7 @@ export class UrineTestQueryParamsDto extends BaseQueryParamsDto {
   @IsInt()
   @IsPositive()
   @IsOptional()
+  @Type(() => Number)
   @ApiProperty({
     description: 'Filter by animal id',
     example: 1,
@@ -202,6 +208,7 @@ export class DungTestQueryParamsDto extends BaseQueryParamsDto {
   @IsInt()
   @IsPositive()
   @IsOptional()
+  @Type(() => Number)
   @ApiProperty({
     description: 'Filter by animal id',
     example: 1,
@@ -235,6 +242,7 @@ export class RumenTestQueryParamsDto extends BaseQueryParamsDto {
   @IsInt()
   @IsPositive()
   @IsOptional()
+  @Type(() => Number)
   @ApiProperty({
     description: 'Filter by animal id',
     example: 1,

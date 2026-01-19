@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
 import {
   IsEnum,
   IsInt,
@@ -28,12 +29,14 @@ export class BaseQueryParamsDto {
   @IsInt()
   @IsPositive()
   @IsOptional()
+  @Type(() => Number)
   @ApiProperty({ required: false })
   readonly page?: number;
 
   @IsInt()
   @IsPositive()
   @IsOptional()
+  @Type(() => Number)
   @ApiProperty({ required: false })
   readonly perPage?: number;
 
