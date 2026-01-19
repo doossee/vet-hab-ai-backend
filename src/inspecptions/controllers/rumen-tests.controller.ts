@@ -1,23 +1,24 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
   Query,
-  UseGuards,
 } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { RumenTestsService } from '../services';
 import { RumenTestEntity, PaginatedRumenTestEntity } from '../entities';
-import { CreateRumenTestDto, UpdateRumenTestDto } from '../dto';
-import { RumenTestQueryParamsDto } from '../dto/query-params.dto';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import {
+  CreateRumenTestDto,
+  RumenTestQueryParamsDto,
+  UpdateRumenTestDto,
+} from '../dto';
 
-@ApiTags('Rumen Tests')
-@UseGuards(JwtAuthGuard)
+@ApiTags('rumen-tests')
 @Controller('rumen-tests')
 export class RumenTestsController {
   constructor(private readonly rumenTestsService: RumenTestsService) {}
@@ -32,27 +33,30 @@ export class RumenTestsController {
   @Get()
   async findAll(@Query() params: RumenTestQueryParamsDto) {
     const { data, meta } = await this.rumenTestsService.findAll(params);
-    return {
-      data: data.map((rumenTest) => new RumenTestEntity(rumenTest)),
-      meta,
-    };
+    const transformedData = data.map(
+      (rumenTest) => new RumenTestEntity(rumenTest),
+    );
+    return { data: transformedData, meta };
   }
 
   @ApiOkResponse({ type: RumenTestEntity })
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    return new RumenTestEntity(await this.rumenTestsService.findOne(+id));
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    return new RumenTestEntity(await this.rumenTestsService.findOne(id));
   }
 
   @ApiOkResponse({ type: RumenTestEntity })
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() data: UpdateRumenTestDto) {
-    return new RumenTestEntity(await this.rumenTestsService.update(+id, data));
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() data: UpdateRumenTestDto,
+  ) {
+    return new RumenTestEntity(await this.rumenTestsService.update(id, data));
   }
 
   @ApiOkResponse({ type: RumenTestEntity })
   @Delete(':id')
-  async remove(@Param('id') id: string) {
-    return new RumenTestEntity(await this.rumenTestsService.remove(+id));
+  async remove(@Param('id', ParseIntPipe) id: number) {
+    return new RumenTestEntity(await this.rumenTestsService.remove(id));
   }
 }
