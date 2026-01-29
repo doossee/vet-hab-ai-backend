@@ -57,7 +57,6 @@ export class CreateUrineTestDto {
   readonly clarity: UrineClarity;
 
   @IsInt()
-  @IsPositive()
   @IsNotEmpty()
   @ApiProperty({
     description:

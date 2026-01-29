@@ -10,7 +10,6 @@ import { IsEntityExist } from 'src/common/validators';
 
 export class CreateBloodSerumTestDto {
   @IsNumber()
-  @IsPositive()
   @IsOptional()
   @ApiProperty({
     description: 'The total protein level in the blood serum (g/dL).',
@@ -19,7 +18,6 @@ export class CreateBloodSerumTestDto {
   readonly totalProtein?: number;
 
   @IsNumber()
-  @IsPositive()
   @IsOptional()
   @ApiProperty({
     description: 'The total calcium level in the blood serum (mg/dL).',
@@ -28,7 +26,6 @@ export class CreateBloodSerumTestDto {
   readonly totalCalcium?: number;
 
   @IsNumber()
-  @IsPositive()
   @IsOptional()
   @ApiProperty({
     description: 'The level of organic phosphorus in the blood serum (mg/dL).',
@@ -37,7 +34,6 @@ export class CreateBloodSerumTestDto {
   readonly organicPhosphorus?: number;
 
   @IsNumber()
-  @IsPositive()
   @IsOptional()
   @ApiProperty({
     description: 'The albumen concentration in the blood serum (g/dL).',
@@ -46,7 +42,6 @@ export class CreateBloodSerumTestDto {
   readonly albumen?: number;
 
   @IsNumber()
-  @IsPositive()
   @IsOptional()
   @ApiProperty({
     description: 'The alpha-globulin concentration in the blood serum (g/dL).',
@@ -55,7 +50,6 @@ export class CreateBloodSerumTestDto {
   readonly alphaGlobulin?: number;
 
   @IsNumber()
-  @IsPositive()
   @IsOptional()
   @ApiProperty({
     description: 'The beta-globulin concentration in the blood serum (g/dL).',
@@ -64,7 +58,6 @@ export class CreateBloodSerumTestDto {
   readonly betaGlobulin?: number;
 
   @IsNumber()
-  @IsPositive()
   @IsOptional()
   @ApiProperty({
     description: 'The gamma-globulin concentration in the blood serum (g/dL).',
@@ -73,7 +66,6 @@ export class CreateBloodSerumTestDto {
   readonly gammaGlobulin?: number;
 
   @IsNumber()
-  @IsPositive()
   @IsOptional()
   @ApiProperty({
     description: 'The creatine level in the blood serum (mg/dL).',
@@ -82,7 +74,6 @@ export class CreateBloodSerumTestDto {
   readonly creatine?: number;
 
   @IsNumber()
-  @IsPositive()
   @IsOptional()
   @ApiProperty({
     description: 'The alkaline reserve in the blood serum (mmol/L).',
@@ -91,7 +82,6 @@ export class CreateBloodSerumTestDto {
   readonly alkalineReserve?: number;
 
   @IsNumber()
-  @IsPositive()
   @IsOptional()
   @ApiProperty({
     description: 'The glucose level in the blood serum (mg/dL).',
@@ -100,7 +90,6 @@ export class CreateBloodSerumTestDto {
   readonly glucose?: number;
 
   @IsNumber()
-  @IsPositive()
   @IsOptional()
   @ApiProperty({
     description: 'The total bilirubin level in the blood serum (mg/dL).',
@@ -109,7 +98,6 @@ export class CreateBloodSerumTestDto {
   readonly totalBilirubin?: number;
 
   @IsNumber()
-  @IsPositive()
   @IsOptional()
   @ApiProperty({
     description: 'The cholesterol level in the blood serum (mg/dL).',
@@ -118,7 +106,6 @@ export class CreateBloodSerumTestDto {
   readonly cholesterol?: number;
 
   @IsNumber()
-  @IsPositive()
   @IsOptional()
   @ApiProperty({
     description: 'The total lipid concentration in the blood serum (mg/dL).',
@@ -127,7 +114,6 @@ export class CreateBloodSerumTestDto {
   readonly totalLipids?: number;
 
   @IsNumber()
-  @IsPositive()
   @IsOptional()
   @ApiProperty({
     description: 'The vitamin A concentration in the blood serum (µg/dL).',
@@ -136,7 +122,6 @@ export class CreateBloodSerumTestDto {
   readonly vitaminA?: number;
 
   @IsNumber()
-  @IsPositive()
   @IsOptional()
   @ApiProperty({
     description: 'The vitamin B concentration in the blood serum (µg/dL).',
@@ -145,7 +130,6 @@ export class CreateBloodSerumTestDto {
   readonly vitaminB?: number;
 
   @IsNumber()
-  @IsPositive()
   @IsOptional()
   @ApiProperty({
     description: 'The lactic acid level in the blood serum (mmol/L).',
@@ -154,7 +138,6 @@ export class CreateBloodSerumTestDto {
   readonly lacticAcid?: number;
 
   @IsNumber()
-  @IsPositive()
   @IsOptional()
   @ApiProperty({
     description: 'The pyruvic acid level in the blood serum (mg/dL).',
@@ -163,7 +146,6 @@ export class CreateBloodSerumTestDto {
   readonly pyruvicAcid?: number;
 
   @IsNumber()
-  @IsPositive()
   @IsOptional()
   @ApiProperty({
     description: 'The citric acid level in the blood serum (mg/dL).',
@@ -172,7 +154,6 @@ export class CreateBloodSerumTestDto {
   readonly citricAcid?: number;
 
   @IsNumber()
-  @IsPositive()
   @IsOptional()
   @ApiProperty({
     description: 'The urea level in the blood serum (mg/dL).',
@@ -181,7 +162,6 @@ export class CreateBloodSerumTestDto {
   readonly urea?: number;
 
   @IsNumber()
-  @IsPositive()
   @IsOptional()
   @ApiProperty({
     description: 'The uric acid level in the blood serum (mg/dL).',
@@ -190,7 +170,6 @@ export class CreateBloodSerumTestDto {
   readonly ureaAcid?: number;
 
   @IsNumber()
-  @IsPositive()
   @IsOptional()
   @ApiProperty({
     description: 'The copper (trace element) level in blood serum (mmol/L).',
@@ -199,7 +178,6 @@ export class CreateBloodSerumTestDto {
   readonly copper?: number;
 
   @IsNumber()
-  @IsPositive()
   @IsOptional()
   @ApiProperty({
     description: 'The cobalt (trace element) level in blood serum (mmol/L).',
@@ -208,7 +186,6 @@ export class CreateBloodSerumTestDto {
   readonly cobalt?: number;
 
   @IsNumber()
-  @IsPositive()
   @IsOptional()
   @ApiProperty({
     description: 'The manganese (trace element) level in blood serum (mmol/L).',
@@ -217,7 +194,6 @@ export class CreateBloodSerumTestDto {
   readonly manganese?: number;
 
   @IsNumber()
-  @IsPositive()
   @IsOptional()
   @ApiProperty({
     description: 'The zinc (trace element) level in blood serum (mmol/L).',

@@ -30,7 +30,6 @@ export class CreateGeneralBloodTestDto {
   readonly conclusion?: string;
 
   @IsNumber()
-  @IsPositive()
   @IsOptional()
   @ApiProperty({
     description:
@@ -40,7 +39,6 @@ export class CreateGeneralBloodTestDto {
   readonly erythrocyteCount?: number;
 
   @IsNumber()
-  @IsPositive()
   @IsOptional()
   @ApiProperty({
     description:
@@ -50,7 +48,6 @@ export class CreateGeneralBloodTestDto {
   readonly leukocyteCount?: number;
 
   @IsNumber()
-  @IsPositive()
   @IsOptional()
   @ApiProperty({
     description:
@@ -60,7 +57,6 @@ export class CreateGeneralBloodTestDto {
   readonly thrombocyteCount?: number;
 
   @IsNumber()
-  @IsPositive()
   @IsOptional()
   @ApiProperty({
     description:
@@ -70,7 +66,6 @@ export class CreateGeneralBloodTestDto {
   readonly coe?: number;
 
   @IsNumber()
-  @IsPositive()
   @IsOptional()
   @ApiProperty({
     description: 'The percentage of water in the blood sample.',
@@ -79,7 +74,6 @@ export class CreateGeneralBloodTestDto {
   readonly waterPercentage?: number;
 
   @IsNumber()
-  @IsPositive()
   @IsOptional()
   @ApiProperty({
     description: 'The percentage of dry residue in the blood sample.',
@@ -88,7 +82,6 @@ export class CreateGeneralBloodTestDto {
   readonly dryResiduePercentage?: number;
 
   @IsNumber()
-  @IsPositive()
   @IsOptional()
   @ApiProperty({
     description:
@@ -98,7 +91,6 @@ export class CreateGeneralBloodTestDto {
   readonly hemoglobin?: number;
 
   @IsNumber()
-  @IsPositive()
   @IsOptional()
   @ApiProperty({
     description:

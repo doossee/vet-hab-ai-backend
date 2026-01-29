@@ -53,7 +53,6 @@ export class CreateRumenTestDto {
   readonly conclusion?: string;
 
   @IsNumber()
-  @IsPositive()
   @IsOptional()
   @ApiProperty({
     description:
@@ -63,7 +62,6 @@ export class CreateRumenTestDto {
   readonly infusoriaCount?: number;
 
   @IsNumber()
-  @IsPositive()
   @IsOptional()
   @ApiProperty({
     description:

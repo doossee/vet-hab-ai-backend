@@ -75,7 +75,6 @@ export class CreateDungTestDto {
   readonly form: DungForm;
 
   @IsInt()
-  @IsPositive()
   @IsNotEmpty()
   @ApiProperty({
     description:
