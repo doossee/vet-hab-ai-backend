@@ -6,7 +6,9 @@ FROM node:22-alpine AS builder
 WORKDIR /app
 
 # Install all dependencies (incl. dev deps: nest CLI, ts-node, prisma CLI)
-COPY package*.json ./
+# .npmrc (legacy-peer-deps) must be present so npm ci resolves the
+# nestjs-prisma peer conflict before install runs.
+COPY package*.json .npmrc ./
 RUN npm ci
 
 # Prisma schema (multi-file folder) must be present before generate
