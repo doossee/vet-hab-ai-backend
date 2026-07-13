@@ -31,15 +31,15 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV CHECKPOINT_DISABLE=1
 
-# Full node_modules from builder: includes the generated Prisma client,
-# the prisma CLI (migrate deploy) and ts-node (prisma db seed).
+# node_modules from builder: carries the generated Prisma client and the
+# prisma CLI so the entrypoint can run `migrate deploy` at startup.
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/prisma ./prisma
 COPY package*.json ./
 COPY tsconfig.json ./
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh && mkdir -p /app/.state
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 EXPOSE 3000
 
