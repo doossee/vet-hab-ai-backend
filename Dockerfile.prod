@@ -5,6 +5,9 @@ FROM node:22-alpine AS builder
 
 WORKDIR /app
 
+# Prisma's engines need OpenSSL; Alpine ships without it.
+RUN apk add --no-cache openssl
+
 # Install all dependencies (incl. dev deps: nest CLI, ts-node, prisma CLI)
 # .npmrc (legacy-peer-deps) must be present so npm ci resolves the
 # nestjs-prisma peer conflict before install runs.
@@ -30,6 +33,9 @@ FROM node:22-alpine AS production
 WORKDIR /app
 ENV NODE_ENV=production
 ENV CHECKPOINT_DISABLE=1
+
+# Prisma's engines need OpenSSL at runtime too.
+RUN apk add --no-cache openssl
 
 # node_modules from builder: carries the generated Prisma client and the
 # prisma CLI so the entrypoint can run `migrate deploy` at startup.
